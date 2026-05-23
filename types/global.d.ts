@@ -1,18 +1,19 @@
-export{}
+// types/globals.d.ts
+export {};
 
 declare global {
-    interface Window {
-        MLS_Util: any
-    }
+  interface Window {
+    MLS_Util: any;
+  }
 }
 
-// types/globals.d.ts
+// CSS Module declarations
 declare module '*.css' {
   const content: { [className: string]: string };
   export default content;
 }
 
-// For side-effect imports (what you're doing)
+// For side-effect imports like import "@/globals.css"
 declare module '*.css' {
   const css: string;
   export default css;
