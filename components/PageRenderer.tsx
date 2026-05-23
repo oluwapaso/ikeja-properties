@@ -14,7 +14,7 @@ export default function PageRenderer({ data }: { data: { sections: ComponentBloc
                 }
 
                 // Type-safe spread: TypeScript now narrows the props correctly
-                return <Component key={index} {...(block.props as any)} is_theme={true} raw_data={block.props} />;
+                return <Component key={index} {...(block.props as any)} is_theme={false} raw_data={block.props} />;
             })}
         </>
     );
