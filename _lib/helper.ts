@@ -268,29 +268,11 @@ export class Helpers {
     }
     
     public adjustColorShade(color: string, adjustment: number): string {
-        // color = "green-600" or "emerald-500" etc.
-        const match = color.match(/^(.+)-(\d{2,3})$/);
-
-        if (!match) {
-            console.warn(`Invalid color format: ${color}. Expected format: color-shade`);
-            return color; // fallback
+        // Safety guard - prevent crash when color is undefined/null
+        if (!color || typeof color !== 'string') {
+            console.warn(`adjustColorShade: Invalid color input. Received:`, color);
+            return "gray-500"; // safe fallback
         }
-
-        const [_, baseColor, shadeStr] = match;
-        let shade = parseInt(shadeStr);
-
-        // Adjust shade
-        shade += adjustment * 100; // +100 for darker, -100 for lighter
-
-        // Clamp between 50 and 950
-        shade = Math.max(50, Math.min(950, shade));
-
-        return `${baseColor}-${shade}`;
-    }
-
-    public adjustColorShadeByPercent(color: string, percent: number): string {
-        // color = "green-600", "emerald-500", "slate-950", etc.
-        // percent = 50 (darker), -30 (lighter), 100 (max dark), -100 (max light)
 
         const match = color.match(/^(.+)-(\d{2,3})$/);
 
@@ -302,26 +284,41 @@ export class Helpers {
         const [_, baseColor, shadeStr] = match;
         let shade = parseInt(shadeStr);
 
-        // Normalize current shade (50 → 950 becomes roughly 0 to 1)
+        shade += adjustment * 100;
+        shade = Math.max(50, Math.min(950, shade));
+
+        return `${baseColor}-${shade}`;
+    }
+
+    public adjustColorShadeByPercent(color: string, percent: number): string {
+        // Safety guard
+        if (!color || typeof color !== 'string') {
+            console.warn(`adjustColorShadeByPercent: Invalid color input. Received:`, color);
+            return "gray-500";
+        }
+
+        const match = color.match(/^(.+)-(\d{2,3})$/);
+
+        if (!match) {
+            console.warn(`Invalid color format: ${color}. Expected format: color-shade`);
+            return color;
+        }
+
+        const [_, baseColor, shadeStr] = match;
+        let shade = parseInt(shadeStr);
+
         const minShade = 50;
         const maxShade = 950;
-        let normalized = (shade - minShade) / (maxShade - minShade); // 0 to 1
+        let normalized = (shade - minShade) / (maxShade - minShade);
 
-        // Apply percentage change
-        // Positive percent = darker, Negative percent = lighter
         normalized += percent / 100;
-
-        // Clamp between 0 and 1
         normalized = Math.max(0, Math.min(1, normalized));
 
-        // Convert back to Tailwind shade (round to nearest 50 or 100)
         let newShade = Math.round(normalized * (maxShade - minShade) + minShade);
-
-        // Snap to valid Tailwind shades
         newShade = this.snapToValidShade(newShade);
 
         return `${baseColor}-${newShade}`;
-    }
+    } 
 
     private snapToValidShade(shade: number): number {
         // Common Tailwind shade steps
