@@ -1,8 +1,16 @@
 'use client';
 
+import { useEffect } from 'react';
 import { componentRegistry, type ComponentBlock } from './registry';
+import { hidePageLoader } from '@/app/GlobalRedux/app/appSlice';
+import { useDispatch } from 'react-redux';
 
 export default function PageRenderer({ data }: { data: { sections: ComponentBlock[] } }) {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(hidePageLoader());
+    }, []);
 
     return (
         <>
