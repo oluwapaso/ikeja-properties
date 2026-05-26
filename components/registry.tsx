@@ -9,6 +9,8 @@ import NavVar1 from "./navs/NavVar-1";
 import NeighborhoodsVar1 from "./neighbrhoods/NeighborhoodsVar-1";
 import OurServicesVar1 from "./our-services/OurServicesVar-1";
 import PropCardVar1 from "./property-cards/PropCardVar-1";
+import NoComponents from "./NoComponents";
+import ContactUsFormVar1 from "./contact-us/ContactUsVarForm-1";
 
 // Define props for each component explicitly
 type ComponentPropsMap = {
@@ -20,7 +22,9 @@ type ComponentPropsMap = {
     NeighborhoodsVar1: React.ComponentProps<typeof NeighborhoodsVar1>;
     BlogsVar1: React.ComponentProps<typeof BlogsVar1>;
     FooterVar1: React.ComponentProps<typeof FooterVar1>;
+    ContactUsFormVar1: React.ComponentProps<typeof ContactUsFormVar1>;
     LoggedInMenu: React.ComponentProps<typeof LoggedInMenu>;
+    NoComponents: React.ComponentProps<typeof NoComponents>;
 };
 
 export const componentRegistry = {
@@ -32,7 +36,9 @@ export const componentRegistry = {
     BlogsVar1,
     FooterVar1,
     PropCardVar1,
+    ContactUsFormVar1,
     LoggedInMenu,
+    NoComponents,
 } as const;
 
 // Type for the component name (e.g. "NavVar1")

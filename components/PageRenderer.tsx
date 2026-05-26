@@ -4,6 +4,18 @@ import { componentRegistry, type ComponentBlock } from './registry';
 
 export default function PageRenderer({ data }: { data: { sections: ComponentBlock[] } }) {
 
+    // If no sections, render NoComponents
+    if (!data.sections || data.sections.length === 0) {
+        const NoComponents = componentRegistry['NoComponents'];
+
+        if (NoComponents) {
+            return <NoComponents is_theme={true} raw_data={{}} />;
+        }
+
+        // Fallback if NoComponents is not registered
+        return <div>No content available</div>;
+    }
+
     return (
         <>
             {data.sections.map((block, index) => {

@@ -2,7 +2,6 @@
 
 import { notFound, useSearchParams } from 'next/navigation';
 import PageRenderer from '@/components/PageRenderer';
-import { getPageFromDB } from '@/_lib/data';
 import { JSX, useEffect, useState } from 'react';
 import { APIResponseProps } from '@/components/types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +24,14 @@ const LivePreviewPage = () => {
     const [pageData, setPageData] = useState<any>(null);
     const [themeData, setThemeData] = useState<any>({});
     const [theme_data_fetched, setThemeDataFetched] = useState(false);
+
+    const DoneRendering = () => {
+        // Send a message to the parent window
+        window.parent.postMessage(
+            { type: 'DONE_RENDERING' },
+            '*' // In production, replace '*' with your parent URL for security
+        );
+    };
 
     useEffect(() => {
         const fetchThemeInfo = async () => {
@@ -89,28 +96,9 @@ const LivePreviewPage = () => {
 
     }, [theme_uid]);
 
-    /**
-    // useEffect(() => {
-
-    //     const makeCall = async (pageUID: any) => {
-    //         const page_data = await getPageFromDB(pageUID);
-    //         if (!page_data) {
-    //             notFound();
-    //         }
-
-    //         setPageData(() => page_data);
-    //     }
-
-    //     if (page_uid && page_uid != "") {
-    //         makeCall(page_uid);
-    //     }
-
-    // }, [page_uid]);
-    **/
-
-    // Dynamically get Header and Footer components
-    // const HeaderComponent = componentRegistry[themeData.theme_settings?.header_component || 'HeaderVar1']; 
-
+    useEffect(() => {
+        DoneRendering();
+    }, []);
 
     if (themeData && pageData) {
 
