@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BiEnvelope, BiLayerPlus, BiMapPin, BiPhoneCall, BiPhoneIncoming, BiRefresh, BiSend } from 'react-icons/bi'
+import { BiEnvelope, BiLayerPlus, BiMapPin, BiPhoneCall, BiPhoneIncoming, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
 import FloatingInput from '@/components/FloatingInput'
 import FloatingTextarea from '@/components/FloatingTextarea'
 import { toast } from 'react-toastify'
@@ -54,17 +54,17 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
             {
                 type: 'MOVE_SECTION',
                 direction: direction,
-                index: raw_data?.component_index
+                component_index: raw_data?.component_index
             },
             '*' // In production, replace '*' with your parent URL for security
         );
     }
 
-    const handleCompPickerClick = () => {
+    const handleCompPickerClick = (event_type: string) => {
         // Send a message to the parent window
         window.parent.postMessage(
             {
-                type: 'REPLACE_SECTION',
+                type: event_type,
                 component_index: raw_data?.component_index,
                 component_type: "Contact Form"
             },
@@ -194,8 +194,8 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
     if (themeSett) {
         return (
-            <section className={`w-full pt-20 pb-20 relative `}>
-                <div className={`container mx-auto max-w-[1150px] grid grid-cols-2 gap 8
+            <section className={`w-full pt-20 pb-20 relative ${themeSett.primary_font}`}>
+                <div className={`container mx-auto max-w-[1250px] grid grid-cols-2 gap-10
                     ${(is_theme && sectionHover) ? "p-[10px] border-2 border-sky-800 transition-all duration-300" : null}`}>
                     <div data-has-bg="yes" className="relative overflow-hidden rounded-2xl shadow-2xl"
                         style={{
@@ -209,11 +209,10 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                     </div>
 
                     <div className=" flex flex-col justify-center px-8">
-                        <div className="font-bold text-3xl">{raw_data.header || "Let's talk?"}</div>
-                        <div className='leading-6 mt-2'>
+                        <div className={`font-bold text-3xl ${themeSett.secondary_font}`}>{raw_data.header || "Let's talk?"}</div>
+                        <div className={`leading-6 mt-2 ${themeSett.primary_font}`}>
                             {raw_data.sub_header || "It's all about the humans behind a brand and those experiencing it, we're right there. In the middle."}
                         </div>
-
 
                         <div className='w-full flex flex-col space-y-5 mt-4'>
                             <div className='grid grid-cols-2 gap-4'>
@@ -254,16 +253,16 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                         </div>
                     </div>
 
-                    <div className=' pt-20 pb-5 col-span-full grid grid-cols-3 *:flex *:flex-col *:space-y-2 *:items-center *:justify-center'>
+                    <div className=' pt-20 pb-5 col-span-full grid grid-cols-3 *:flex *:flex-col *:space-y-3 *:items-center *:justify-start'>
                         <div>
                             <div className=' size-[60px] rounded-md bg-amber-100 text-amber-600 flex items-center justify-center'>
                                 <BiMapPin size={30} />
                             </div>
 
-                            <div className='font-semibold text-lg'>Address</div>
-                            <div className='text-gray-500 font-medium'>
-                                {brker_info?.contact_info?.address}, {brker_info?.contact_info?.address_2},
-                                {brker_info?.contact_info?.city} {brker_info?.contact_info?.state}.
+                            <div className={`font-semibold text-lg ${themeSett.secondary_font}`}>Address</div>
+                            <div className='text-gray-500 font-medium flex flex-col space-y-1'>
+                                <span>{brker_info?.contact_info?.address}, {brker_info?.contact_info?.address_2}</span>
+                                <span>{brker_info?.contact_info?.city} {brker_info?.contact_info?.state}</span>
                             </div>
                         </div>
 
@@ -272,11 +271,11 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                                 <BiPhoneIncoming size={30} />
                             </div>
 
-                            <div className='font-semibold text-lg'>Contact</div>
-                            <div className='text-gray-500 font-medium'>
-                                {brker_info?.contact_info?.phone_cell},
-                                {brker_info?.contact_info?.phone_local},
-                                {brker_info?.contact_info?.phone_toll_free}
+                            <div className={`font-semibold text-lg ${themeSett.secondary_font}`}>Contact</div>
+                            <div className='text-gray-500 font-medium flex flex-col space-y-1'>
+                                <span>{brker_info?.contact_info?.phone_cell}</span>
+                                <span>{brker_info?.contact_info?.phone_local}</span>
+                                <span>{brker_info?.contact_info?.phone_toll_free}</span>
                             </div>
                         </div>
 
@@ -285,10 +284,10 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                                 <BiEnvelope size={30} />
                             </div>
 
-                            <div className='font-semibold text-lg'>Email</div>
-                            <div className='text-gray-500 font-medium'>
-                                {brker_info?.email},
-                                {brker_info?.departments_info?.support_email}
+                            <div className={`font-semibold text-lg ${themeSett.secondary_font}`}>Email</div>
+                            <div className='text-gray-500 font-medium flex flex-col space-y-1'>
+                                <span>{brker_info?.email}</span>
+                                <span>{brker_info?.departments_info?.support_email}</span>
                             </div>
                         </div>
                     </div>
@@ -298,34 +297,66 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                     <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
                     *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
+                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
+                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiLayerPlus size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Add new section after
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsGear size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Section settings
+                            </span>
                         </div>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
-                            onClick={handleCompPickerClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiRefresh size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Replace Section
+                            </span>
                         </div>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsArrowUp size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Move Section Up
+                            </span>
                         </div>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsArrowDown size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Move Section Down
+                            </span>
                         </div>
 
-                    </div>
-                )}
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REMOVE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiTrash size={17} />
 
-                {is_theme && (
-                    <div className='absolute z-[1000] w-full bottom-1.5 flex items-center justify-center'>
-                        <div className='p-2 bg-primary text-white hover:shadow-2xl rounded cursor-pointer flex items-center justify-center'>
-                            <BiLayerPlus size={22} />
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Remove Section Down
+                            </span>
                         </div>
+
                     </div>
                 )}
             </section>

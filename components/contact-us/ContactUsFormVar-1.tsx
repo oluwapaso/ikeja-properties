@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BiLayerPlus, BiPhoneCall, BiRefresh, BiSend } from 'react-icons/bi'
+import { BiLayerPlus, BiPhoneCall, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import FloatingInput from '@/components/FloatingInput'
 import FloatingTextarea from '@/components/FloatingTextarea'
@@ -34,8 +34,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
     }
 
     const handleSettingsClick = () => {
-        // Send a message to the parent window
-        console.log("raw_data", raw_data)
+        // Send a message to the parent window 
         window.parent.postMessage(
             {
                 type: 'OPEN_EDITOR_SETTINGS',
@@ -56,17 +55,17 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
             {
                 type: 'MOVE_SECTION',
                 direction: direction,
-                index: raw_data?.component_index
+                component_index: raw_data?.component_index
             },
             '*' // In production, replace '*' with your parent URL for security
         );
     }
 
-    const handleCompPickerClick = () => {
+    const handleCompPickerClick = (event_type: string) => {
         // Send a message to the parent window
         window.parent.postMessage(
             {
-                type: 'REPLACE_SECTION',
+                type: event_type,
                 component_index: raw_data?.component_index,
                 component_type: "Contact Form"
             },
@@ -287,63 +286,68 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
                 {is_theme && (
                     <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
-                    *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
+                                   *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
+                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
+                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiLayerPlus size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                           text-white text-xs'>
+                                Add new section after
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsGear size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                           text-white text-xs'>
+                                Section settings
+                            </span>
                         </div>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
-                            onClick={handleCompPickerClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiRefresh size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                           text-white text-xs'>
+                                Replace Section
+                            </span>
                         </div>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsArrowUp size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                           text-white text-xs'>
+                                Move Section Up
+                            </span>
                         </div>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsArrowDown size={17} />
+
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                           text-white text-xs'>
+                                Move Section Down
+                            </span>
                         </div>
 
-                    </div>
-                )}
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REMOVE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiTrash size={17} />
 
-                {is_theme && (
-                    <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
-                        *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
-
-                        <div id='editor_settings' className='hover:shadow-2xl'
-                            onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsGear size={17} />
+                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                           text-white text-xs'>
+                                Remove Section Down
+                            </span>
                         </div>
 
-                        <div id='editor_settings' className='hover:shadow-2xl'
-                            onClick={handleCompPickerClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BiRefresh size={17} />
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl'
-                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowUp size={17} />
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl'
-                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowDown size={17} />
-                        </div>
-
-                    </div>
-                )}
-
-                {is_theme && (
-                    <div className='absolute z-[1000] w-full bottom-1.5 flex items-center justify-center'>
-                        <div className='p-2 bg-primary text-white hover:shadow-2xl rounded cursor-pointer flex items-center justify-center'>
-                            <BiLayerPlus size={22} />
-                        </div>
                     </div>
                 )}
             </section>

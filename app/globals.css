@@ -1,10 +1,17 @@
-@import "tailwindcss";
+@import "tailwindcss"; 
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+/* ==================== TOP 50 GOOGLE FONTS ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Lato:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Ubuntu:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@400;500;600;700&family=Merriweather:wght@400;500;600;700&family=PT+Serif:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600;700&family=Crimson+Text:wght@400;500;600;700&family=Jost:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Mulish:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&family=Karla:wght@400;500;600;700&family=Heebo:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap');
+/* @source "./safelist.txt"; */
+
+/* ==================== GOOGLE FONTS ==================== */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 
-/* @source "./safelist.txt"; */
+/* All other fonts in one clean import */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&family=Montserrat:wght@400;500;600&family=Open+Sans:wght@400;500;600&family=Lato:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@400;500;600&family=Nunito:wght@400;500;600&family=Ubuntu:wght@400;500;600&display=swap'); */
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -20,6 +27,10 @@
     margin: 0;
     padding: 0;
   } */
+
+  html {
+    font-family: "Poppins", "Nunito Sans", system-ui, sans-serif;
+  }
 
   /* Title.css */
   @keyframes slideFadeIn {
@@ -125,6 +136,151 @@
     color: white;
   }
 
+  html,
+  body {
+    font-family: var(--font-poppins);
+  }
+
+  /* Font Classes using Tailwind v4 variables */ 
+  .font-inter {
+    font-family: var(--font-inter);
+  }
+
+  .font-roboto {
+    font-family: var(--font-roboto);
+  }
+
+  .font-poppins {
+    font-family: var(--font-poppins);
+  }
+
+  .font-montserrat {
+    font-family: var(--font-montserrat);
+  }
+
+  .font-open-sans {
+    font-family: var(--font-open-sans);
+  }
+
+  .font-lato {
+    font-family: var(--font-lato);
+  }
+
+  .font-playfair {
+    font-family: var(--font-playfair);
+  }
+
+  .font-raleway {
+    font-family: var(--font-raleway);
+  }
+
+  .font-nunito {
+    font-family: var(--font-nunito);
+  }
+
+  .font-ubuntu {
+    font-family: var(--font-ubuntu);
+  }
+
+  .font-dm-sans {
+    font-family: var(--font-dm-sans);
+  }
+
+  .font-figtree {
+    font-family: var(--font-figtree);
+  }
+
+  .font-outfit {
+    font-family: var(--font-outfit);
+  }
+
+  .font-space-grotesk {
+    font-family: var(--font-space-grotesk);
+  }
+
+  .font-manrope {
+    font-family: var(--font-manrope);
+  }
+
+  .font-plus-jakarta {
+    font-family: var(--font-plus-jakarta);
+  }
+
+  .font-work-sans {
+    font-family: var(--font-work-sans);
+  }
+
+  .font-source-sans {
+    font-family: var(--font-source-sans);
+  }
+
+  .font-ibm-plex {
+    font-family: var(--font-ibm-plex);
+  }
+
+  .font-libre-baskerville {
+    font-family: var(--font-libre-baskerville);
+  }
+
+  .font-merriweather {
+    font-family: var(--font-merriweather);
+  }
+
+  .font-pt-serif {
+    font-family: var(--font-pt-serif);
+  }
+
+  .font-eb-garamond {
+    font-family: var(--font-eb-garamond);
+  }
+
+  .font-crimson-text {
+    font-family: var(--font-crimson-text);
+  }
+
+  .font-jost {
+    font-family: var(--font-jost);
+  }
+
+  .font-quicksand {
+    font-family: var(--font-quicksand);
+  }
+
+  .font-mulish {
+    font-family: var(--font-mulish);
+  }
+
+  .font-barlow {
+    font-family: var(--font-barlow);
+  }
+
+  .font-karla {
+    font-family: var(--font-karla);
+  }
+
+  .font-heebo {
+    font-family: var(--font-heebo);
+  }
+
+  .font-lexend {
+    font-family: var(--font-lexend);
+  }
+
+  .font-urbanist {
+    font-family: var(--font-urbanist);
+  }
+
+  .font-instrument-sans {
+    font-family: var(--font-instrument-sans);
+  }
+
+  .font-geist {
+    font-family: var(--font-geist);
+  }
+
+  .font-geist-mono {
+    font-family: var(--font-geist-mono);
+  }
 }
 
 @layer utilities {
@@ -235,23 +391,62 @@
   --foreground: #171717;
 }
 
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
 
 @theme {
 
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono); */
+  
   /* override default fonts */
-  --font-*: initial;
-  --font-sans: "Poppins", "sans-serif";
+  /* --font-*: initial; */ 
 
-  --font-poppins: "Poppins", "sans-serif";
-  --font-nunito: "Nunito Sans", "sans-serif";
-  --font-jost: "Jost", "sans-serif";
-  --font-michroma: "Michroma", "sans-serif";
+  /* Base font */ 
+  --font-sans: "Poppins", system-ui, sans-serif;
+
+  /* Top 50 Popular Google Fonts */
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-open-sans: "Open Sans", sans-serif;
+  --font-lato: "Lato", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-raleway: "Raleway", sans-serif;
+  --font-nunito: "Nunito", sans-serif;
+  --font-ubuntu: "Ubuntu", sans-serif;
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-figtree: "Figtree", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+  --font-space-grotesk: "Space Grotesk", sans-serif;
+  --font-manrope: "Manrope", sans-serif;
+  --font-plus-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-work-sans: "Work Sans", sans-serif;
+  --font-source-sans: "Source Sans 3", sans-serif;
+  --font-ibm-plex: "IBM Plex Sans", sans-serif;
+  --font-libre-baskerville: "Libre Baskerville", serif;
+  --font-merriweather: "Merriweather", serif;
+  --font-pt-serif: "PT Serif", serif;
+  --font-eb-garamond: "EB Garamond", serif;
+  --font-crimson-text: "Crimson Text", serif;
+  --font-jost: "Jost", sans-serif;
+  --font-quicksand: "Quicksand", sans-serif;
+  --font-mulish: "Mulish", sans-serif;
+  --font-barlow: "Barlow", sans-serif;
+  --font-karla: "Karla", sans-serif;
+  --font-heebo: "Heebo", sans-serif;
+  --font-lexend: "Lexend", sans-serif;
+  --font-urbanist: "Urbanist", sans-serif;
+  --font-instrument-sans: "Instrument Sans", sans-serif;
+  --font-geist: "Geist", sans-serif;
+  --font-geist-mono: "Geist Mono", monospace;
 
   --breakpoint-3xl: 1920px;
   --breakpoint-2xs: 420px;
@@ -326,5 +521,5 @@ body {
   padding: 0px;
   margin: 0px;
   color: var(--color-primary);
-  font-family: "Poppins", "Nunito Sans", sans-serif;
+  font-family: var(--font-poppins);
 }
