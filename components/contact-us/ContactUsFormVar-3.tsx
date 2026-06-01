@@ -2,18 +2,18 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BiLayerPlus, BiPhoneCall, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
-import { FaMapMarkerAlt } from 'react-icons/fa'
+import { BiEnvelope, BiLayerPlus, BiMapPin, BiPhoneCall, BiPhoneIncoming, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
 import FloatingInput from '@/components/FloatingInput'
 import FloatingTextarea from '@/components/FloatingTextarea'
 import { toast } from 'react-toastify'
 import { Helpers } from '@/_lib/helper'
 import { RootState } from '@/app/GlobalRedux/store'
 import { hidePageLoader, showPageLoader } from '@/app/GlobalRedux/app/appSlice'
-import { BsArrowDown, BsArrowUp, BsGear } from 'react-icons/bs'
+import { BsArrowDown, BsArrowUp, BsArrowUpRight, BsGear } from 'react-icons/bs'
+import { Button } from '../Button'
 
 const helpers = new Helpers();
-const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, raw_data?: any }) => {
+const ContactUsFormVar3 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, raw_data?: any }) => {
 
     const dispatch = useDispatch();
     const brker_info = useSelector((state: RootState) => state.broker);
@@ -34,14 +34,14 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
     }
 
     const handleSettingsClick = () => {
-        // Send a message to the parent window 
+        // Send a message to the parent window
         window.parent.postMessage(
             {
                 type: 'OPEN_EDITOR_SETTINGS',
                 data: {
                     "category": "contact_us_form",
                     "type": "section",
-                    "component": "ContactUsFormVar1",
+                    "component": "ContactUsVarForm2",
                     ...raw_data,
                 }
             },
@@ -194,109 +194,101 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
     }, [theme]);
 
     if (themeSett) {
+
         return (
-            <section className="w-full pt-30 md:pt-50 pb-15 tab:pb-20 relative">
-                <div className={`container mx-auto max-w-[1150px] px-4 xl:px-0 flex flex-col 
-                    ${(is_theme && sectionHover) ? "p-[10px] border-2 border-sky-800 transition-all duration-300" : null}`}>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-
-                        <div className=" flex flex-col">
-                            <div className="font-bold text-3xl">{raw_data.header || "Let's talk?"}</div>
-                            <div className='leading-6 mt-2'>
-                                {raw_data.sub_header || "It's all about the humans behind a brand and those experiencing it, we're right there. In the middle."}
+            <section className="pt-32 pb-24 px-6 relative">
+                <div className="max-w-6xl mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-24">
+                        {/* Left Column */}
+                        <div className="space-y-16">
+                            <div>
+                                <h1 className="text-[#1a1a1a] text-4xl md:text-5xl font-light leading-tight mb-6 tracking-tight">
+                                    Let&apos;s find your
+                                    <br />
+                                    <span className="italic">perfect place</span>
+                                </h1>
+                                <p className="text-[#666] text-lg leading-relaxed max-w-sm">
+                                    We believe everyone deserves a home that feels right.
+                                    Tell us what you&apos;re looking for.
+                                </p>
                             </div>
 
-                            <div className='grid grid-cols-1 xs:grid-cols-2 md:grid-cols-1 tab:grid-cols-2 gap-6 xs:gap-6 
-                             xs:divide-x xs:divide-gray-300 md:divide-none tab:divide-x mt-14 
-                                *:flex *:items-center *:space-x-5'>
-                                <div className=''>
-                                    <div className='shrink-0 relative'>
-                                        <div className={` size-14 hover:shadow-2xl bg-${themeSett.primary_color} flex items-center 
-                                        justify-center text-white cursor-pointer rounded-full after:size-18 after:absolute 
-                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} 
-                                        after:-z-0`}>
-                                            <FaMapMarkerAlt size={28} className=" relative z-10" />
-                                        </div>
-                                    </div>
-
-                                    <div className='flex flex-col space-y-1'>
-                                        <div>{brker_info?.contact_info?.address},</div>
-                                        <div>{brker_info?.contact_info?.address_2},</div>
-                                        <div>{brker_info?.contact_info?.city} {brker_info?.contact_info?.state}.</div>
-                                    </div>
+                            <div className="space-y-8">
+                                <div className="border-t border-[#e5e5e5] pt-6">
+                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Address</p>
+                                    <p className="text-[#1a1a1a]">245 Valencia Street<br />San Francisco, CA 94103</p>
                                 </div>
-
-                                <div>
-                                    <div className='shrink-0 relative'>
-                                        <div className={` size-14 hover:shadow-2xl bg-${themeSett.primary_color} flex items-center 
-                                        justify-center text-white cursor-pointer rounded-full after:size-18 after:absolute 
-                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} 
-                                        after:-z-0`}>
-                                            <BiPhoneCall size={28} className=" relative z-10" />
-                                        </div>
-                                    </div>
-
-                                    <div className=' flex flex-col space-y-1'>
-                                        <div>{brker_info?.contact_info?.phone_cell}</div>
-                                        <div>{brker_info?.contact_info?.phone_local}</div>
-                                        <div>{brker_info?.contact_info?.phone_toll_free}</div>
-                                    </div>
+                                <div className="border-t border-[#e5e5e5] pt-6">
+                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Email</p>
+                                    <a href="mailto:hello@haven.co" className="text-[#1a1a1a] hover:underline">hello@haven.co</a>
+                                </div>
+                                <div className="border-t border-[#e5e5e5] pt-6">
+                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Phone</p>
+                                    <a href="tel:+14155550123" className="text-[#1a1a1a] hover:underline">+1 (415) 555-0123</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div className='w-full flex flex-col space-y-5 mt-4'>
-                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                        {/* Right Column - Form */}
+                        <div>
+                            <form onSubmit={handleSubmitClick} className="space-y-8">
                                 <div>
-                                    <FloatingInput name='firstname' label='First Name' placeholder='Enter your first name'
-                                        handleChange={(e) => handleInputChange(e)} value={formData.firstname} required />
+                                    <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Name</label>
+                                    <input
+                                        value={formData.firstname}
+                                        onChange={handleInputChange}
+                                        placeholder="Your full name"
+                                        className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
+                                    />
                                 </div>
-
                                 <div>
-                                    <FloatingInput name='lastname' label='Last Name' placeholder='Enter your last name'
-                                        handleChange={(e) => handleInputChange(e)} value={formData.lastname} required />
+                                    <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Email</label>
+                                    <input
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        placeholder="you@email.com"
+                                        className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
+                                    />
                                 </div>
-                            </div>
-                            <div>
-                                <FloatingInput name='email' label='Email' placeholder='Enter your email'
-                                    handleChange={(e) => handleInputChange(e)} value={formData.email} required />
-                            </div>
-                            <div>
-                                <FloatingInput name='phone' label='Phone Number' placeholder='Enter your phone number'
-                                    handleChange={(e) => handleInputChange(e)} value={formData.phone} required />
-                            </div>
-                            <div>
-                                <FloatingInput name='subject' label='Subject' placeholder='Message subject'
-                                    handleChange={(e) => handleInputChange(e)} value={formData.subject} required />
-                            </div>
-                            <div>
-                                <FloatingTextarea name='message' label='Message' placeholder='Enter your message' height='160px'
-                                    handleChange={(e) => handleInputChange(e)} value={formData.message} required />
-                            </div>
-
-                            <div className='flex justify-end w-full'>
-                                <div className='px-7 py-4 text-white bg-buttons-primary rounded hover:shadow-2xl cursor-pointer
-                                     flex items-center justify-center space-x-2 ' onClick={handleSubmitClick}>
-                                    <span>{raw_data.button_text || "Send Message"}</span>
-                                    <BiSend size={25} className='' />
+                                <div>
+                                    <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Phone</label>
+                                    <input
+                                        type="tel"
+                                        value={formData.phone}
+                                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                        placeholder="+1 (555) 000-0000"
+                                        className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
+                                    />
                                 </div>
-                            </div>
+                                <div>
+                                    <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Message</label>
+                                    <textarea
+                                        value={formData.message}
+                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                        placeholder="Tell us about your ideal home..."
+                                        rows={4}
+                                        className="w-full bg-transparent border-0 border-b border-[#e5e5e5] px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus:outline-none focus:border-[#1a1a1a] resize-none"
+                                    />
+                                </div>
+                                <Button className="bg-[#1a1a1a] text-white hover:bg-[#333] rounded-full px-8 h-12 mt-4">
+                                    Send Message <BsArrowUpRight className="ml-2 h-4 w-4" />
+                                </Button>
+                            </form>
                         </div>
-
                     </div>
                 </div>
 
                 {is_theme && (
                     <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
-                        *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
+                *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
                             onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiLayerPlus size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
+                        text-white text-xs'>
                                 Add new section after
                             </span>
                         </div>
@@ -306,7 +298,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsGear size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                        text-white text-xs'>
                                 Section settings
                             </span>
                         </div>
@@ -316,7 +308,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BiRefresh size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                        text-white text-xs'>
                                 Replace Section
                             </span>
                         </div>
@@ -326,7 +318,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsArrowUp size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                        text-white text-xs'>
                                 Move Section Up
                             </span>
                         </div>
@@ -336,7 +328,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsArrowDown size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                        text-white text-xs'>
                                 Move Section Down
                             </span>
                         </div>
@@ -346,7 +338,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BiTrash size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                        text-white text-xs'>
                                 Remove Section Down
                             </span>
                         </div>
@@ -359,4 +351,4 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
 }
 
-export default ContactUsFormVar1
+export default ContactUsFormVar3

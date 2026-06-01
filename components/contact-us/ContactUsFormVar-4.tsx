@@ -2,18 +2,19 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BiLayerPlus, BiPhoneCall, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
-import { FaMapMarkerAlt } from 'react-icons/fa'
+import { BiEnvelope, BiLayerPlus, BiMapPin, BiPhoneCall, BiPhoneIncoming, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
 import FloatingInput from '@/components/FloatingInput'
 import FloatingTextarea from '@/components/FloatingTextarea'
 import { toast } from 'react-toastify'
 import { Helpers } from '@/_lib/helper'
 import { RootState } from '@/app/GlobalRedux/store'
 import { hidePageLoader, showPageLoader } from '@/app/GlobalRedux/app/appSlice'
-import { BsArrowDown, BsArrowUp, BsGear } from 'react-icons/bs'
+import { BsArrowDown, BsArrowUp, BsArrowUpRight, BsGear } from 'react-icons/bs'
+import { Button } from '../Button'
+import { CgMail } from 'react-icons/cg'
 
 const helpers = new Helpers();
-const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, raw_data?: any }) => {
+const ContactUsFormVar4 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, raw_data?: any }) => {
 
     const dispatch = useDispatch();
     const brker_info = useSelector((state: RootState) => state.broker);
@@ -34,14 +35,14 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
     }
 
     const handleSettingsClick = () => {
-        // Send a message to the parent window 
+        // Send a message to the parent window
         window.parent.postMessage(
             {
                 type: 'OPEN_EDITOR_SETTINGS',
                 data: {
                     "category": "contact_us_form",
                     "type": "section",
-                    "component": "ContactUsFormVar1",
+                    "component": "ContactUsVarForm2",
                     ...raw_data,
                 }
             },
@@ -194,102 +195,129 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
     }, [theme]);
 
     if (themeSett) {
+
         return (
-            <section className="w-full pt-30 md:pt-50 pb-15 tab:pb-20 relative">
-                <div className={`container mx-auto max-w-[1150px] px-4 xl:px-0 flex flex-col 
-                    ${(is_theme && sectionHover) ? "p-[10px] border-2 border-sky-800 transition-all duration-300" : null}`}>
+            <section className="min-h-screen flex flex-col lg:flex-row relative">
+                {/* Left Side - Dark with Image */}
+                <div className="lg:w-1/2 bg-[#1c3d2e] relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200')] bg-cover bg-center opacity-30" />
+                    <div className="relative z-10 p-8 lg:p-16 h-full flex flex-col justify-between min-h-[50vh] lg:min-h-screen">
+                        {/* Logo */}
+                        <div className="text-white text-2xl font-semibold">Evergreen<span className="text-emerald-400">.</span></div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+                        {/* Content */}
+                        <div className="py-12 lg:py-0">
+                            <p className="text-emerald-400 text-sm tracking-wider mb-4">CONTACT US</p>
+                            <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-light leading-tight mb-8">
+                                Ready to find your
+                                <br />
+                                <span className="font-medium">dream home?</span>
+                            </h1>
+                            <p className="text-white/70 text-lg max-w-md leading-relaxed">
+                                Our team of experienced agents is here to guide you through every step
+                                of your real estate journey.
+                            </p>
+                        </div>
 
-                        <div className=" flex flex-col">
-                            <div className="font-bold text-3xl">{raw_data.header || "Let's talk?"}</div>
-                            <div className='leading-6 mt-2'>
-                                {raw_data.sub_header || "It's all about the humans behind a brand and those experiencing it, we're right there. In the middle."}
-                            </div>
-
-                            <div className='grid grid-cols-1 xs:grid-cols-2 md:grid-cols-1 tab:grid-cols-2 gap-6 xs:gap-6 
-                             xs:divide-x xs:divide-gray-300 md:divide-none tab:divide-x mt-14 
-                                *:flex *:items-center *:space-x-5'>
-                                <div className=''>
-                                    <div className='shrink-0 relative'>
-                                        <div className={` size-14 hover:shadow-2xl bg-${themeSett.primary_color} flex items-center 
-                                        justify-center text-white cursor-pointer rounded-full after:size-18 after:absolute 
-                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} 
-                                        after:-z-0`}>
-                                            <FaMapMarkerAlt size={28} className=" relative z-10" />
-                                        </div>
-                                    </div>
-
-                                    <div className='flex flex-col space-y-1'>
-                                        <div>{brker_info?.contact_info?.address},</div>
-                                        <div>{brker_info?.contact_info?.address_2},</div>
-                                        <div>{brker_info?.contact_info?.city} {brker_info?.contact_info?.state}.</div>
-                                    </div>
+                        {/* Contact Info */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-emerald-400/20 flex items-center justify-center">
+                                    <BiPhoneIncoming className="h-4 w-4 text-emerald-400" />
                                 </div>
-
                                 <div>
-                                    <div className='shrink-0 relative'>
-                                        <div className={` size-14 hover:shadow-2xl bg-${themeSett.primary_color} flex items-center 
-                                        justify-center text-white cursor-pointer rounded-full after:size-18 after:absolute 
-                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} 
-                                        after:-z-0`}>
-                                            <BiPhoneCall size={28} className=" relative z-10" />
-                                        </div>
-                                    </div>
-
-                                    <div className=' flex flex-col space-y-1'>
-                                        <div>{brker_info?.contact_info?.phone_cell}</div>
-                                        <div>{brker_info?.contact_info?.phone_local}</div>
-                                        <div>{brker_info?.contact_info?.phone_toll_free}</div>
-                                    </div>
+                                    <p className="text-white/50 text-xs">Call us</p>
+                                    <p className="text-white text-sm">(555) 123-4567</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-emerald-400/20 flex items-center justify-center">
+                                    <CgMail className="h-4 w-4 text-emerald-400" />
+                                </div>
+                                <div>
+                                    <p className="text-white/50 text-xs">Email us</p>
+                                    <p className="text-white text-sm">hello@evergreen.com</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-emerald-400/20 flex items-center justify-center">
+                                    <BiMapPin className="h-4 w-4 text-emerald-400" />
+                                </div>
+                                <div>
+                                    <p className="text-white/50 text-xs">Visit us</p>
+                                    <p className="text-white text-sm">Portland, OR</p>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div className='w-full flex flex-col space-y-5 mt-4'>
-                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                {/* Right Side - Form */}
+                <div className="lg:w-1/2 bg-white p-8 lg:p-16 flex items-center">
+                    <div className="w-full max-w-lg mx-auto">
+                        <h2 className="text-2xl font-medium text-[#1a1a1a] mb-2">Get in touch</h2>
+                        <p className="text-[#666] mb-8">Fill out the form below and we&apos;ll get back to you shortly.</p>
+
+                        <form onSubmit={handleSubmitClick} className="space-y-5">
+                            <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <FloatingInput name='firstname' label='First Name' placeholder='Enter your first name'
-                                        handleChange={(e) => handleInputChange(e)} value={formData.firstname} required />
+                                    <label className="text-sm text-[#333] block mb-2">Full Name</label>
+                                    <input
+                                        value={formData.firstname}
+                                        onChange={handleInputChange}
+                                        className="h-12 border-[#e5e5e5] focus:border-emerald-500 rounded-lg bg-[#fafafa]"
+                                        placeholder="John Doe"
+                                    />
                                 </div>
-
                                 <div>
-                                    <FloatingInput name='lastname' label='Last Name' placeholder='Enter your last name'
-                                        handleChange={(e) => handleInputChange(e)} value={formData.lastname} required />
+                                    <label className="text-sm text-[#333] block mb-2">Phone</label>
+                                    <input
+                                        type="tel"
+                                        value={formData.phone}
+                                        onChange={handleInputChange}
+                                        className="h-12 border-[#e5e5e5] focus:border-emerald-500 rounded-lg bg-[#fafafa]"
+                                        placeholder="(555) 000-0000"
+                                    />
                                 </div>
                             </div>
+
                             <div>
-                                <FloatingInput name='email' label='Email' placeholder='Enter your email'
-                                    handleChange={(e) => handleInputChange(e)} value={formData.email} required />
-                            </div>
-                            <div>
-                                <FloatingInput name='phone' label='Phone Number' placeholder='Enter your phone number'
-                                    handleChange={(e) => handleInputChange(e)} value={formData.phone} required />
-                            </div>
-                            <div>
-                                <FloatingInput name='subject' label='Subject' placeholder='Message subject'
-                                    handleChange={(e) => handleInputChange(e)} value={formData.subject} required />
-                            </div>
-                            <div>
-                                <FloatingTextarea name='message' label='Message' placeholder='Enter your message' height='160px'
-                                    handleChange={(e) => handleInputChange(e)} value={formData.message} required />
+                                <label className="text-sm text-[#333] block mb-2">Email Address</label>
+                                <input
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    className="h-12 border-[#e5e5e5] focus:border-emerald-500 rounded-lg bg-[#fafafa]"
+                                    placeholder="you@example.com"
+                                />
                             </div>
 
-                            <div className='flex justify-end w-full'>
-                                <div className='px-7 py-4 text-white bg-buttons-primary rounded hover:shadow-2xl cursor-pointer
-                                     flex items-center justify-center space-x-2 ' onClick={handleSubmitClick}>
-                                    <span>{raw_data.button_text || "Send Message"}</span>
-                                    <BiSend size={25} className='' />
-                                </div>
+                            <div>
+                                <label className="text-sm text-[#333] block mb-2">Message</label>
+                                <textarea
+                                    value={formData.message}
+                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                    rows={4}
+                                    className="w-full border border-[#e5e5e5] focus:border-emerald-500 rounded-lg bg-[#fafafa] p-3 text-[#333] focus:outline-none resize-none"
+                                    placeholder="Tell us about what you're looking for..."
+                                />
                             </div>
-                        </div>
 
+                            <Button className="w-full h-12 bg-[#1c3d2e] hover:bg-[#2a5a44] text-white rounded-lg">
+                                Send Message <BiSend className="ml-2 h-4 w-4" />
+                            </Button>
+                        </form>
+
+                        <p className="text-center text-[#999] text-sm mt-6">
+                            By submitting, you agree to our{" "}
+                            <a href="#" className="text-[#1c3d2e] hover:underline">Privacy Policy</a>
+                        </p>
                     </div>
                 </div>
 
                 {is_theme && (
                     <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
-                        *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
+                    *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
                             onMouseOver={handleHover} onMouseOut={handleMouseExist}>
@@ -306,7 +334,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsGear size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                            text-white text-xs'>
                                 Section settings
                             </span>
                         </div>
@@ -316,7 +344,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BiRefresh size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                            text-white text-xs'>
                                 Replace Section
                             </span>
                         </div>
@@ -326,7 +354,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsArrowUp size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                            text-white text-xs'>
                                 Move Section Up
                             </span>
                         </div>
@@ -336,7 +364,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsArrowDown size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                            text-white text-xs'>
                                 Move Section Down
                             </span>
                         </div>
@@ -346,7 +374,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BiTrash size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                            text-white text-xs'>
                                 Remove Section Down
                             </span>
                         </div>
@@ -359,4 +387,4 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
 }
 
-export default ContactUsFormVar1
+export default ContactUsFormVar4

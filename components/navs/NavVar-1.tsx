@@ -63,12 +63,6 @@ const NavVar1 = ({ transparent = true, is_theme = false, raw_data = {} }: { tran
                         })
                     ) : null}
 
-                    {/* <CustomLinkMain href={`${themeSett.theme_prefix}/home`} is_theme={is_theme} className={` hover:border-b-${themeSett.primary_color} transition-all ease-in hover:delay-150`}>Home</CustomLinkMain>
-                    <CustomLinkMain href={`${themeSett.theme_prefix}/mls-search`} is_theme={is_theme} className={` hover:border-b-${themeSett.primary_color} transition-all ease-in hover:delay-150`}>MLS Search</CustomLinkMain>
-                    <CustomLinkMain href={`${themeSett.theme_prefix}/market-insights`} is_theme={is_theme} className={`hover:border-b-${themeSett.primary_color} transition-all ease-in hover:delay-150`}>Market Insights</CustomLinkMain>
-                    <CustomLinkMain href={`${themeSett.theme_prefix}/mortgage-calculator`} is_theme={is_theme} className={` hover:border-b-${themeSett.primary_color} transition-all ease-in hover:delay-150`}>Mortgage Calculator</CustomLinkMain>
-                    <CustomLinkMain href={`${themeSett.theme_prefix}/contact-us`} is_theme={is_theme} className={` hover:border-b-${themeSett.primary_color} transition-all ease-in hover:delay-150`}>Contact Us</CustomLinkMain> */}
-
                     {(user.isLogged)
                         ? <LoggedInMenu is_theme={is_theme} />
                         : <CustomLinkMain href={`${themeSett.theme_prefix}/login`} is_theme={is_theme} className={`transition-all ease-in hover:delay-150 mx-3 rounded

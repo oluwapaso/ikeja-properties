@@ -169,8 +169,7 @@ const FooterVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, r
                 </div>
 
                 <div className={`${showButtons ? "fixed" : "hidden"}  bottom-8 flex justify-end right-2.5`}>
-                    <div className=' flex flex-col space-y-3.5 *:flex *:items-center *:justify-center *:size-11 *:rounded-full 
-                *:cursor-pointer'>
+                    <div className=' flex flex-col space-y-3.5 *:flex *:items-center *:justify-center *:size-11 *:rounded-full *:cursor-pointer'>
                         <div className='text-white bg-gray-800 hover:drop-shadow-xl' onClick={backToTop}>
                             <BsChevronBarUp size={20} />
                         </div>
@@ -185,11 +184,13 @@ const FooterVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, r
                     </div>
                 </div>
 
-                <div id='editor_settings' className='absolute z-[1000] right-1.5 top-1.5 bg-gray-200 text-gray-800 flex items-center 
-                                justify-center p-2 rounded cursor-pointer hover:shadow-2xl'
-                    onClick={handleSettingsClick}>
-                    <BsGear size={17} />
-                </div>
+                {is_theme && (
+                    <div id='editor_settings' className='absolute z-[1000] right-1.5 top-1.5 bg-gray-200 text-gray-800 flex items-center 
+                    justify-center p-2 rounded cursor-pointer hover:shadow-2xl'
+                        onClick={handleSettingsClick}>
+                        <BsGear size={17} />
+                    </div>
+                )}
             </footer>
         )
     }

@@ -104,14 +104,19 @@ const LivePreviewPage = () => {
 
     if (themeData && pageData) {
 
-        const NavComponent = getComponent(themeData.theme_settings?.nav_component);
-        const FooterComponent = getComponent(themeData.theme_settings?.footer_component);
+        // Extract nav and footer from the new object structure
+        const navBlock = themeData.theme_settings?.nav_component;
+        const footerBlock = themeData.theme_settings?.footer_component;
+
+        // Get the actual component
+        const NavComponent = getComponent(navBlock?.type);
+        const FooterComponent = getComponent(footerBlock?.type);
 
         return <div className="flex flex-col min-h-screen">
 
             {/* Dynamic Nav */}
             {NavComponent ? (
-                <NavComponent is_theme={true} transparent={true} />
+                <NavComponent {...(navBlock?.props || {})} is_theme={true} transparent={true} />
             ) : (
                 <nav className="h-20 bg-gray-900 flex items-center justify-center text-white">
                     Nav Component Not Found
@@ -119,12 +124,12 @@ const LivePreviewPage = () => {
             )}
 
             <main className="w-full">
-                <PageRenderer data={pageData} is_theme={true} />;
+                <PageRenderer data={pageData} is_theme={true} />
             </main>
 
             {/* Dynamic Footer */}
             {FooterComponent ? (
-                <FooterComponent is_theme={true} />
+                <FooterComponent {...(footerBlock?.props || {})} is_theme={true} />
             ) : (
                 <footer className="h-20 bg-gray-900 flex items-center justify-center text-white">
                     Footer Component Not Found
