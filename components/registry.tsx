@@ -2,20 +2,19 @@
 
 import BlogsVar1 from "./blogs/BlogsVar-1";
 import FeaturedListsingsVar1 from "./featured-listings/FeaturedListsingsVar-1";
-import FooterVar1 from "./footers/FooterVar-1";
 import HeaderVar1 from "./headers/HeaderVar-1";
 import LoggedInMenu from "./navs/LoggedInMenu";
-import NavVar1 from "./navs/NavVar-1";
 import NeighborhoodsVar1 from "./neighbrhoods/NeighborhoodsVar-1";
 import OurServicesVar1 from "./our-services/OurServicesVar-1";
-import PropCardVar1 from "./property-cards/PropCardVar-1";
 import NoComponents from "./NoComponents";
 
 //Navs
+import NavVar1 from "./navs/NavVar-1";
 import NavVar2 from "./navs/NavVar-2";
 import NavVar3 from "./navs/NavVar-3";
 
 //Footers
+import FooterVar1 from "./footers/FooterVar-1";
 import FooterVar2 from "./footers/FooterVar-2";
 import FooterVar3 from "./footers/FooterVar-3";
 import FooterVar4 from "./footers/FooterVar-4";
@@ -34,6 +33,11 @@ import ContactUsFormVar5 from "./contact-us/ContactUsFormVar-5";
 import ContactUsFormVar6 from "./contact-us/ContactUsFormVar-6";
 import ContactUsFormVar7 from "./contact-us/ContactUsFormVar-7";
 
+//Property Cards
+import PropCardVar1 from "./property-cards/PropCardVar-1";
+import PropCardVar2 from "./property-cards/PropCardVar-2";
+import PropCardVar3 from "./property-cards/PropCardVar-3";
+
 // Define props for each component explicitly
 type ComponentPropsMap = {
     //Navbars
@@ -42,11 +46,15 @@ type ComponentPropsMap = {
     NavVar3: React.ComponentProps<typeof NavVar3>;
 
     HeaderVar1: React.ComponentProps<typeof HeaderVar1>;
-    PropCardVar1: React.ComponentProps<typeof PropCardVar1>;
     FeaturedListsingsVar1: React.ComponentProps<typeof FeaturedListsingsVar1>;
     OurServicesVar1: React.ComponentProps<typeof OurServicesVar1>;
     NeighborhoodsVar1: React.ComponentProps<typeof NeighborhoodsVar1>;
     BlogsVar1: React.ComponentProps<typeof BlogsVar1>;
+
+    //Property Cards
+    PropCardVar1: React.ComponentProps<typeof PropCardVar1>;
+    PropCardVar2: React.ComponentProps<typeof PropCardVar2>;
+    PropCardVar3: React.ComponentProps<typeof PropCardVar3>;
 
     //Contact Forms
     ContactUsFormVar1: React.ComponentProps<typeof ContactUsFormVar1>;
@@ -84,7 +92,11 @@ export const componentRegistry = {
     OurServicesVar1,
     NeighborhoodsVar1,
     BlogsVar1,
+
+    //Property Cards
     PropCardVar1,
+    PropCardVar2,
+    PropCardVar3,
 
     //Contact Forms
     ContactUsFormVar1,

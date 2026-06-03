@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import PropCardVar1 from '../property-cards/PropCardVar-1';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/GlobalRedux/store';
 import { BsGear } from 'react-icons/bs';
+import { getComponent } from '../registry';
+import PropCardVar1 from '../property-cards/PropCardVar-1';
 
 const FeaturedListsingsVar1 = (
     { sales_type = "For Sale", status = "Active", is_theme = false, size = 8, prop_type = "Residential,Land,Commercial", raw_data = {} }:
@@ -19,6 +20,9 @@ const FeaturedListsingsVar1 = (
     const [ftdListLoaded, setFtdListLoaded] = useState<boolean>(false);
     const [ftdListingError, setFtdListingError] = useState("");
     const [sectionHover, setSectionHover] = useState<boolean>(false);
+
+    //Property Card
+    // const [PropertyCard, setPropertyCard] = useState<React.ComponentType<any> | null>(null);
 
     const handleSettingsClick = () => {
         // Send a message to the parent window
@@ -76,10 +80,15 @@ const FeaturedListsingsVar1 = (
     }, [window.MLS_Util]);
 
     useEffect(() => {
-        if (theme) {
+        if (theme.theme_settings) {
             setThemeSett(theme.theme_settings);
         }
-    }, [theme]);
+    }, [theme.theme_settings]);
+
+    const PropertyCard = useMemo(() => {
+        const comp = getComponent(theme?.theme_settings?.property_card);
+        return comp || PropCardVar1;   // Fallback to default card
+    }, [theme?.theme_settings?.property_card]);
 
     if (themeSett) {
         return (
@@ -104,9 +113,22 @@ const FeaturedListsingsVar1 = (
                             </div>
                         }
 
-                        {(ftdListLoaded && Array.isArray(featuredListsings) && featuredListsings.length > 0) &&
+                        {(PropertyCard && ftdListLoaded && Array.isArray(featuredListsings) && featuredListsings.length > 0) &&
                             (featuredListsings.map((prop, index) => {
-                                return <PropCardVar1 key={index} pro_info={prop} is_theme={is_theme} />
+
+                                // Stronger check
+                                if (!prop || typeof prop !== 'object') {
+                                    console.warn("Skipping invalid property:", prop);
+                                    return null;
+                                }
+
+                                if (prop) {
+                                    return <PropertyCard key={index} pro_info={prop} is_theme={is_theme} />
+                                } else {
+                                    return <nav className="h-20 bg-gray-900 flex items-center justify-center text-white">
+                                        Currupt property data
+                                    </nav>
+                                }
                             }))
                         }
                     </div>
@@ -123,6 +145,8 @@ const FeaturedListsingsVar1 = (
             </section>
         )
     }
+
+    return null;
 }
 
-export default FeaturedListsingsVar1
+export default FeaturedListsingsVar1;

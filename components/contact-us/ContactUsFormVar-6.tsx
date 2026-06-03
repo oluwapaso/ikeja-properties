@@ -348,7 +348,7 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BiLayerPlus size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                        text-white text-xs'>
+                            text-white text-xs'>
                                 Add new section after
                             </span>
                         </div>
@@ -358,7 +358,7 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsGear size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                        text-white text-xs'>
+                            text-white text-xs'>
                                 Section settings
                             </span>
                         </div>
@@ -368,7 +368,7 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BiRefresh size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                        text-white text-xs'>
+                            text-white text-xs'>
                                 Replace Section
                             </span>
                         </div>
@@ -378,7 +378,7 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsArrowUp size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                        text-white text-xs'>
+                            text-white text-xs'>
                                 Move Section Up
                             </span>
                         </div>
@@ -388,7 +388,7 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BsArrowDown size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                        text-white text-xs'>
+                            text-white text-xs'>
                                 Move Section Down
                             </span>
                         </div>
@@ -398,7 +398,7 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BiTrash size={17} />
 
                             <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                        text-white text-xs'>
+                            text-white text-xs'>
                                 Remove Section Down
                             </span>
                         </div>

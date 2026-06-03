@@ -1,13 +1,12 @@
 'use client';
 
-import { notFound, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import PageRenderer from '@/components/PageRenderer';
-import { JSX, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { APIResponseProps } from '@/components/types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateThemeSettings } from '../GlobalRedux/theme/themeSlice';
 import { getComponent } from '@/components/registry';
-import { RootState } from '../GlobalRedux/store';
 
 export const dynamic = 'force-dynamic';   // This forces fresh data on every request (no caching) 
 

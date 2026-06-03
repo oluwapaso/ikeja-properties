@@ -1,5 +1,6 @@
 "use client"
 
+import { Helpers } from '@/_lib/helper';
 import { AppDispatch, RootState } from '@/app/GlobalRedux/store';
 import { updateDataCounts, updateFavorites } from '@/app/GlobalRedux/user/userSlice';
 import React, { useEffect, useState } from 'react'
@@ -8,6 +9,7 @@ import { FaHeartCircleMinus, FaHeartCirclePlus } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
+const helpers = new Helpers();
 const FavoriteButton = ({ themeSett, property_uid }: { themeSett: any, property_uid: string, }) => {
 
     const user = useSelector((state: RootState) => state.user);
@@ -104,8 +106,8 @@ const FavoriteButton = ({ themeSett, property_uid }: { themeSett: any, property_
 
     if (submitting) {
         return (
-            <div className={`size-8 flex items-center justify-center cursor-pointer rounded-full bg-${themeSett.primary_color}-100 
-            text-${themeSett.primary_color}-600`}>
+            <div className={`size-8 flex items-center justify-center cursor-pointer rounded-full 
+            bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -80)} text-${themeSett.primary_color}`}>
                 <AiOutlineLoading3Quarters size={24} className='animate animate-spin' />
             </div>
         )
@@ -114,16 +116,18 @@ const FavoriteButton = ({ themeSett, property_uid }: { themeSett: any, property_
     if (!submitting) {
         if (user.favorites.includes(property_uid)) {
             return (
-                <div className={` size-8 flex items-center justify-center cursor-pointer rounded-full bg-${themeSett.primary_color}-600 
-                    text-white hover:bg-${themeSett.primary_color}-300 hover:text-${themeSett.primary_color}-600`}
+                <div className={` size-8 flex items-center justify-center cursor-pointer rounded-full 
+                    bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -50)} 
+                    text-white hover:text-${themeSett.primary_color}`}
                     onClick={RemoveFromFav}>
                     <FaHeartCircleMinus size={20} />
                 </div>
             )
         } else {
             return (
-                <div className={` size-8 flex items-center justify-center cursor-pointer rounded-full bg-${themeSett.primary_color}-200 
-                    text-${themeSett.primary_color}-600 hover:bg-${themeSett.primary_color}-600 hover:text-white`}
+                <div className={` size-8 flex items-center justify-center cursor-pointer rounded-full 
+                    bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -50)} 
+                    text-${themeSett.primary_color} hover:bg-${themeSett.primary_color} hover:text-white`}
                     onClick={AddToFav}>
                     <FaHeartCirclePlus size={20} />
                 </div>
