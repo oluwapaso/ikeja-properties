@@ -106,21 +106,30 @@ const LivePreviewPage = () => {
         // Extract nav and footer from the new object structure
         const navBlock = themeData.theme_settings?.nav_component;
         const footerBlock = themeData.theme_settings?.footer_component;
+        const sections = pageData?.sections;
 
-        // Get the actual component
-        const NavComponent = getComponent(navBlock?.type);
+        var NavComponent = null;
+        var NavFound = false;
+
+        for (var i = 0; i < sections.length; i++) {
+            if (["HeaderVar1", "HeaderVar2"].includes(sections[i].type)) {
+                NavFound = true;
+                break;
+            }
+        }
+
+        // If ther is no other componet with Navs in the sections
+        if (!NavFound) {
+            // Get the actual component
+            NavComponent = getComponent(navBlock?.type);
+        }
+
         const FooterComponent = getComponent(footerBlock?.type);
 
         return <div className="flex flex-col min-h-screen">
 
             {/* Dynamic Nav */}
-            {NavComponent ? (
-                <NavComponent {...(navBlock?.props || {})} is_theme={true} transparent={true} />
-            ) : (
-                <nav className="h-20 bg-gray-900 flex items-center justify-center text-white">
-                    Nav Component Not Found
-                </nav>
-            )}
+            {NavComponent ? (<NavComponent {...(navBlock?.props || {})} is_theme={true} transparent={true} />) : null}
 
             <main className="w-full">
                 <PageRenderer data={pageData} is_theme={true} />
@@ -134,6 +143,14 @@ const LivePreviewPage = () => {
                     Footer Component Not Found
                 </footer>
             )}
+
+            {
+                /*{NavComponent ? (<NavComponent {...(navBlock?.props || {})} is_theme={true} transparent={true} />) : (
+                    <nav className="h-20 bg-gray-900 flex items-center justify-center text-white">
+                        Nav Component Not Found
+                    </nav>
+                )}*/
+            }
         </div>
     }
 }

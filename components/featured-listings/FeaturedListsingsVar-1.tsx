@@ -4,9 +4,10 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/GlobalRedux/store';
-import { BsGear } from 'react-icons/bs';
+import { BsArrowDown, BsArrowUp, BsGear } from 'react-icons/bs';
 import { getComponent } from '../registry';
 import PropCardVar1 from '../property-cards/PropCardVar-1';
+import { BiLayerPlus, BiRefresh, BiTrash } from 'react-icons/bi';
 
 const FeaturedListsingsVar1 = (
     { sales_type = "For Sale", status = "Active", is_theme = false, size = 8, prop_type = "Residential,Land,Commercial", raw_data = {} }:
@@ -39,6 +40,30 @@ const FeaturedListsingsVar1 = (
             '*' // In production, replace '*' with your parent URL for security
         );
     };
+
+    const handleMoveClick = (direction: string) => {
+        // Send a message to the parent window
+        window.parent.postMessage(
+            {
+                type: 'MOVE_SECTION',
+                direction: direction,
+                component_index: raw_data?.component_index
+            },
+            '*' // In production, replace '*' with your parent URL for security
+        );
+    }
+
+    const handleCompPickerClick = (event_type: string) => {
+        // Send a message to the parent window
+        window.parent.postMessage(
+            {
+                type: event_type,
+                component_index: raw_data?.component_index,
+                component_type: "Featured Listsings"
+            },
+            '*' // In production, replace '*' with your parent URL for security
+        );
+    }
 
     const handleHover = () => {
         setSectionHover(true);
@@ -92,17 +117,16 @@ const FeaturedListsingsVar1 = (
 
     if (themeSett) {
         return (
-            <section className="w-full py-20 flex justify-center relative" data-show-featured-listings="Yes">
+            <section className="w-full py-20 px-3 tab:px-0 flex justify-center relative" data-show-featured-listings="Yes">
 
-                <div className={`container flex flex-col  
-                ${(is_theme && sectionHover) ? "p-[10px] border-2 border-sky-800 transition-all duration-300" : null}`}>
+                <div className={`container flex flex-col ${(is_theme && sectionHover) ? "p-[10px] border-2 border-sky-800 transition-all duration-300" : null}`}>
 
                     <div className=' flex flex-col'>
-                        <div className='font-semibold text-3xl'>{raw_data.header || "Featured Listsings"}</div>
+                        <div className='font-semibold text-xl tab:text-3xl'>{raw_data.header || "Featured Listsings"}</div>
                         <div className='font-medium text-lg'>{raw_data.sub_header || "Here are some of our handpicked properties for you."}</div>
                     </div>
 
-                    <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-8 lg:gap-x-6 xl:gap-x-6 mt-5'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-8 lg:gap-x-6 xl:gap-x-6 mt-5'>
                         {!ftdListLoaded && <div className='col-span-full h-[250px] bg-white flex items-center justify-center'>
                             <AiOutlineLoading3Quarters size={30} className='animate animate-spin' />
                         </div>}
@@ -136,10 +160,69 @@ const FeaturedListsingsVar1 = (
                 </div>
 
                 {is_theme && (
-                    <div id='editor_settings' className=' absolute z-[1000] right-1.5 top-20 bg-gray-200 text-gray-800 flex items-center 
-                    justify-center p-2 rounded cursor-pointer hover:shadow-2xl'
-                        onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                        <BsGear size={17} />
+                    <div className='absolute z-[1000] right-1.5 top-2 space-x-2 flex items-center justify-end 
+                    *:bg-gray-800 *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
+                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiLayerPlus size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Add new section after
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsGear size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Section settings
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiRefresh size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Replace Section
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsArrowUp size={17} />
+
+                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Move Section Up
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsArrowDown size={17} />
+
+                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Move Section Down
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REMOVE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiTrash size={17} />
+
+                            <span className='absolute hidden right-0 w-fit group-hover:inline-block whitespace-nowrap bottom-full px-2 
+                                py-2 rounded bg-gray-800 text-white text-xs'>
+                                Remove Section Down
+                            </span>
+                        </div>
+
                     </div>
                 )}
             </section>

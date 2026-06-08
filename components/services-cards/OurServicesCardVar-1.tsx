@@ -25,7 +25,7 @@ const OurServicesCardVar1 = ({ service_info, is_theme = false }: { service_info:
     if (themeSett && themeSett != null) {
         return (
             <CustomLinkMain href={`${themeSett.theme_prefix}/service-details/${service_info.slug}`} is_theme={is_theme}
-                className=' flex items-start space-x-8'>
+                className=' flex items-start space-x-4 tab:space-x-8'>
                 <div className={`bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} text-${themeSett.primary_color} p-2 rounded-md`} >
                     <BsStars size={55} />
                 </div>

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/GlobalRedux/store';
-import { BsGear } from 'react-icons/bs';
+import { BsArrowDown, BsArrowUp, BsGear } from 'react-icons/bs';
 import CustomLinkMain from '../CustomLink';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { Helpers } from '@/_lib/helper';
 import NeighCardVar1 from '../neighborhood-cards/NeighCardVar-1';
+import { BiLayerPlus, BiRefresh, BiTrash } from 'react-icons/bi';
 
 const helpers = new Helpers();
 const NeighborhoodsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_theme?: boolean, size?: number, raw_data?: any }) => {
@@ -37,6 +38,30 @@ const NeighborhoodsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_t
             '*' // In production, replace '*' with your parent URL for security
         );
     };
+
+    const handleMoveClick = (direction: string) => {
+        // Send a message to the parent window
+        window.parent.postMessage(
+            {
+                type: 'MOVE_SECTION',
+                direction: direction,
+                component_index: raw_data?.component_index
+            },
+            '*' // In production, replace '*' with your parent URL for security
+        );
+    }
+
+    const handleCompPickerClick = (event_type: string) => {
+        // Send a message to the parent window
+        window.parent.postMessage(
+            {
+                type: event_type,
+                component_index: raw_data?.component_index,
+                component_type: "Featured Listsings"
+            },
+            '*' // In production, replace '*' with your parent URL for security
+        );
+    }
 
     const handleHover = () => {
         setSectionHover(true);
@@ -81,24 +106,24 @@ const NeighborhoodsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_t
 
     if (themeSett) {
         return (
-            <section className="w-full py-20 flex justify-center relative" data-show-neighborhoods="Yes">
+            <section className="w-full py-20 px-3 md:px-0 flex justify-center relative" data-show-neighborhoods="Yes">
                 <div className={`container flex flex-col 
                     ${(is_theme && sectionHover) ? "p-[10px] border-2 border-sky-800 transition-all duration-300" : null}`}>
 
                     <div className='w-full grid grid-cols-12 items-center'>
-                        <div className='col-span-8'>
-                            <div className={`border-l-6 px-5 border-${themeSett.primary_color} text-3xl font-semibold`}>
+                        <div className='col-span-full md:col-span-8'>
+                            <div className={`border-l-6 px-5 border-${themeSett.primary_color} text-xl md:text-3xl font-semibold`}>
                                 {raw_data.header || "Featured Neighborhoods"}
                             </div>
                         </div>
-                        <div className='col-span-4'>
+                        <div className='col-span-full md:col-span-4'>
                             <div className='font-medium text-lg'>
                                 {raw_data.sub_header || "Discover the most sought-after neighborhoods in the city, each offering unique character, amenities, and opportunities"}
                             </div>
                         </div>
                     </div>
 
-                    <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-8 lg:gap-x-6 xl:gap-x-6 mt-20 *:even:mt-16'>
+                    <div className='grid col-span-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-8 lg:gap-x-6 xl:gap-x-6 mt-2 md:mt-20 md:*:even:mt-16'>
                         {!neighListLoaded && <div className='col-span-full h-[250px] bg-white flex items-center justify-center'>
                             <AiOutlineLoading3Quarters size={30} className='animate animate-spin' />
                         </div>}
@@ -117,7 +142,7 @@ const NeighborhoodsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_t
                     </div>
 
                     {raw_data?.show_more == "Yes" &&
-                        <div className=' col-span-full w-full mt-20 flex items-center justify-center'>
+                        <div className=' col-span-full w-full mt-10 md:mt-20 flex items-center justify-center'>
                             <CustomLinkMain href={`${themeSett.theme_prefix}/neighborhoods?page=1`} is_theme={is_theme}
                                 className={`px-8 py-5 text-white cursor-pointer flex items-center justify-center rounded space-x-2.5 
                                 hover:shadow-2xl bg-${themeSett.primary_color} 
@@ -130,10 +155,69 @@ const NeighborhoodsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_t
                 </div>
 
                 {is_theme && (
-                    <div id='editor_settings' className=' absolute z-[1000] right-1.5 top-2 bg-gray-200 text-gray-800 flex items-center 
-                        justify-center p-2 rounded cursor-pointer hover:shadow-2xl'
-                        onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                        <BsGear size={17} />
+                    <div className='absolute z-[1000] right-1.5 top-2 space-x-2 flex items-center justify-end 
+                    *:bg-gray-800 *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
+                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiLayerPlus size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Add new section after
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsGear size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Section settings
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiRefresh size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Replace Section
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsArrowUp size={17} />
+
+                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Move Section Up
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsArrowDown size={17} />
+
+                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Move Section Down
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REMOVE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiTrash size={17} />
+
+                            <span className='absolute hidden right-0 w-fit group-hover:inline-block whitespace-nowrap bottom-full px-2 
+                                py-2 rounded bg-gray-800 text-white text-xs'>
+                                Remove Section Down
+                            </span>
+                        </div>
+
                     </div>
                 )}
             </section>

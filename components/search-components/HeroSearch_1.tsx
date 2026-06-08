@@ -82,9 +82,10 @@ const HeroSearch_1 = () => {
 
     if (themeSett && themeSett != null) {
         return (
-            <div className=' w-full flex flex-col  drop-shadow-2xl relative z-30'>
+            <div className=' w-full flex flex-col drop-shadow-2xl relative z-30'>
                 <div className=' w-full flex items-center divide-x divide-gray-200/30 *:first:rounded-tl-2xl 
-                    *:last:rounded-tr-2xl *:flex *:items-center *:px-8 *:py-4 *:text-white cursor-pointer '>
+                    *:last:rounded-tr-2xl *:flex *:items-center font-medium text-sm lg:text-base *:px-5 *:py-3 lg:*:px-8 
+                    lg:*:py-4 *:text-white cursor-pointer '>
                     <div className={`${activeTab == "Buy"
                         ? `bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)}`
                         : `bg-${themeSett.secondary_color} hover:bg-${helpers.adjustColorShade(themeSett.secondary_color, -1)}`}`}
@@ -101,31 +102,32 @@ const HeroSearch_1 = () => {
 
                 <div className='w-full relative z-30'>
 
-                    <div className=' w-[950px] z-30 px-5 py-5 rounded-2xl rounded-tl-none bg-white 
-                        grid grid-cols-[4fr_3fr_4fr_70px] gap-3.5  *:flex *:flex-col'>
+                    <div className=' w-full lg:w-[950px] z-30 px-5 py-5 rounded-2xl rounded-tl-none bg-white 
+                        grid grid-cols-1 lg:grid-cols-[4fr_3fr_4fr_70px] gap-3.5  *:flex *:flex-col'>
 
-                        <div className=''>
+                        <div className='lg:grid-cols-1'>
                             <div className='font-semibold text-lg'>Location</div>
                             <div className='w-full border-b border-gray-200'>
                                 <LocationLookupInput props={PropertyTypeDD_Data} setFormData={setFormData} />
                             </div>
                         </div>
 
-                        <div className=''>
+                        <div className='lg:grid-cols-1'>
                             <div className='font-semibold text-lg'>Property Type</div>
                             <div className='w-full border-b border-gray-200'>
                                 <PropertyTypeDD props={PropertyTypeDD_Data} />
                             </div>
                         </div>
 
-                        <div className=''>
+                        <div className='lg:grid-cols-1'>
                             <div className='font-semibold text-lg'>Price Range</div>
                             <div className='w-full border-b border-gray-200'>
                                 <PriceRangeDD props={PropertyTypeDD_Data} />
                             </div>
                         </div>
 
-                        <div className={` bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)} 
+                        <div className={`lg:grid-cols-1 bg-${themeSett.primary_color} 
+                            hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)} 
                             rounded-lg flex items-center justify-center text-white cursor-pointer hover:shadow-2xl `}
                             onClick={() => Run_MLS_Search()}>
                             <BsSearch size={30} />

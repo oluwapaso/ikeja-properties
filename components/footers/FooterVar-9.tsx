@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaArrowRightLong, FaFacebook, FaYoutube } from 'react-icons/fa6';
 import Image from 'next/image';
-import { BsArrowRight, BsArrowUpRight, BsChevronBarUp, BsClock, BsGear, BsGithub, BsInstagram, BsLinkedin, BsTwitterX, BsWhatsapp } from 'react-icons/bs';
+import { BsArrowDown, BsArrowRight, BsArrowUp, BsArrowUpRight, BsChevronBarUp, BsClock, BsGear, BsGithub, BsInstagram, BsLinkedin, BsTwitterX, BsWhatsapp } from 'react-icons/bs';
 import { BiBuilding, BiChat, BiEnvelopeOpen, BiHeart, BiHome, BiMapPin, BiPhone } from 'react-icons/bi';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { PiPhoneIncoming } from 'react-icons/pi';
@@ -15,6 +15,7 @@ import CustomLinkMain from '../CustomLink';
 import { Button } from '../Button';
 import { CgMail } from 'react-icons/cg';
 import { LuTreePine } from 'react-icons/lu';
+import { BiLayerPlus, BiRefresh, BiTrash } from 'react-icons/bi';
 
 const FooterVar9 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, raw_data?: any }) => {
 
@@ -24,6 +25,7 @@ const FooterVar9 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, r
 
     const brker_info = useSelector((state: RootState) => state.broker);
     const [showButtons, setShowButtons] = useState(false);
+    const [sectionHover, setSectionHover] = useState<boolean>(false);
 
     const backToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -43,6 +45,38 @@ const FooterVar9 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, r
             '*' // In production, replace '*' with your parent URL for security
         );
     };
+
+    const handleMoveClick = (direction: string) => {
+        // Send a message to the parent window
+        window.parent.postMessage(
+            {
+                type: 'MOVE_SECTION',
+                direction: direction,
+                component_index: raw_data?.component_index
+            },
+            '*' // In production, replace '*' with your parent URL for security
+        );
+    }
+
+    const handleCompPickerClick = (event_type: string) => {
+        // Send a message to the parent window
+        window.parent.postMessage(
+            {
+                type: event_type,
+                component_index: raw_data?.component_index,
+                component_type: "Footer"
+            },
+            '*' // In production, replace '*' with your parent URL for security
+        );
+    }
+
+    const handleHover = () => {
+        setSectionHover(true);
+    }
+
+    const handleMouseExist = () => {
+        setSectionHover(false);
+    }
 
     useEffect(() => {
 
@@ -72,7 +106,7 @@ const FooterVar9 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, r
     if (themeSett) {
 
         return (
-            <footer className="bg-[#2d3b2d] text-white">
+            <footer className="w-full relative bg-[#2d3b2d] text-white">
                 {/* Top CTA */}
                 <div className="bg-[#4a6741]">
                     <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8 text-center">
@@ -204,10 +238,27 @@ const FooterVar9 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, r
                 </div>
 
                 {is_theme && (
-                    <div id='editor_settings' className='absolute z-[1000] right-1.5 top-1.5 bg-gray-200 text-gray-800 flex items-center 
-                        justify-center p-2 rounded cursor-pointer hover:shadow-2xl'
-                        onClick={handleSettingsClick}>
-                        <BsGear size={17} />
+                    <div className='absolute z-[1000] right-1.5 top-2.5 space-x-2 flex items-center justify-end 
+                    *:bg-gray-800 *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsGear size={17} />
+                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Footer Settings
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REPLACE_FOOTER")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiRefresh size={17} />
+
+                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Replace Footer
+                            </span>
+                        </div>
                     </div>
                 )}
             </footer>

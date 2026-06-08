@@ -316,14 +316,14 @@ const ContactUsFormVar4 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                 </div>
 
                 {is_theme && (
-                    <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
+                    <div className=' absolute z-[1000] right-1.5 top-1 space-x-2 flex items-center justify-end *:bg-gray-800 
                     *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
                             onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiLayerPlus size={17} />
 
-                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
                                 Add new section after
                             </span>
@@ -333,7 +333,7 @@ const ContactUsFormVar4 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsGear size={17} />
 
-                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
                                 Section settings
                             </span>
@@ -343,7 +343,7 @@ const ContactUsFormVar4 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiRefresh size={17} />
 
-                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
                                 Replace Section
                             </span>
@@ -353,7 +353,7 @@ const ContactUsFormVar4 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsArrowUp size={17} />
 
-                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
                                 Move Section Up
                             </span>
@@ -363,7 +363,7 @@ const ContactUsFormVar4 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsArrowDown size={17} />
 
-                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
                                 Move Section Down
                             </span>
@@ -373,7 +373,7 @@ const ContactUsFormVar4 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             onClick={() => handleCompPickerClick("REMOVE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiTrash size={17} />
 
-                            <span className='absolute hidden group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
                                 Remove Section Down
                             </span>
