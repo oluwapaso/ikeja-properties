@@ -2,24 +2,56 @@
 
 import { PriceFilters } from '@/_lib/data';
 import { RootState } from '@/app/GlobalRedux/store';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import FloatingOptions from '../FloatingOptions';
 import { BsDash } from 'react-icons/bs';
 import { Helpers } from '@/_lib/helper';
 
 const helpers = new Helpers();
-const PriceRangeDD = ({ props }: { props: any }) => {
+const PriceRangeDD = ({ props, raw_data = {} }: { props: any, raw_data?: any }) => {
 
     const [is_shown, setIsShown] = useState(false);
     const boxRef = useRef<HTMLDivElement>(null);
     const theme = useSelector((state: RootState) => state.theme);
 
     const [themeSett, setThemeSett] = useState<any | null>(null);
-    const minPriceOPtions = [{ name: 'No Minimum', code: '' }, ...PriceFilters];
-    const maxPriceOPtions = [{ name: 'No Maximum', code: '' }, ...PriceFilters];
 
-    const handlePriceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    // Get merchant's minimum price (if set)
+    const merchantMinPrice = raw_data?.minimum_price || '';
+
+    // const minPriceOPtions = [{ name: 'No Minimum', code: '' }, ...PriceFilters];
+    // const maxPriceOPtions = [{ name: 'No Maximum', code: '' }, ...PriceFilters];
+
+    // Filter minimum price options based on merchant's restriction
+    const minPriceOptions = useMemo(() => {
+        if (!merchantMinPrice) {
+            return [{ name: 'No Minimum', code: '' }, ...PriceFilters];
+        }
+
+        // Filter PriceFilters to only show prices >= merchant minimum
+        const filteredPrices = PriceFilters.filter(price =>
+            parseInt(price.code) >= parseInt(merchantMinPrice)
+        );
+
+        return [{ name: 'No Minimum', code: '' }, ...filteredPrices];
+    }, [merchantMinPrice]);
+
+    // Filter maximum price options based on merchant's restriction
+    const maxPriceOptions = useMemo(() => {
+        if (!merchantMinPrice) {
+            return [{ name: 'No Maximum', code: '' }, ...PriceFilters];
+        }
+
+        // Filter PriceFilters to only show prices >= merchant minimum
+        const filteredPrices = PriceFilters.filter(price =>
+            parseInt(price.code) >= parseInt(merchantMinPrice)
+        );
+
+        return [{ name: 'No Maximum', code: '' }, ...filteredPrices];
+    }, [merchantMinPrice]);
+
+    const handlePriceChangeXX = (e: React.ChangeEvent<HTMLSelectElement>) => {
 
         const name = e.target.name;
         let value = e.target.value;
@@ -80,6 +112,36 @@ const PriceRangeDD = ({ props }: { props: any }) => {
             }
         });
     }
+
+    const handlePriceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const name = e.target.name;
+        let value = e.target.value;
+        let comp_field = name === "min_price" ? "max_price" : "min_price";
+
+        let comp_val = props.form_data[comp_field];
+        let comp_val_index = PriceFilters.findIndex(p => p.code === comp_val);
+        let this_val_index = PriceFilters.findIndex(p => p.code === value);
+
+        // Logic to prevent min > max
+        if (name === "min_price" && this_val_index >= comp_val_index && comp_val_index > -1) {
+            comp_val = PriceFilters[this_val_index + 1]?.code || PriceFilters[this_val_index].code;
+        } else if (name === "max_price" && this_val_index <= comp_val_index && comp_val_index > -1) {
+            comp_val = PriceFilters[this_val_index - 1]?.code || PriceFilters[0].code;
+        }
+
+        let range_from = name === "min_price" ? value : comp_val;
+        let range_to = name === "max_price" ? value : comp_val;
+
+        const displayFrom = !range_from ? "No Min." : helpers.formatCurrency(range_from, true);
+        const displayTo = !range_to ? "No Max." : helpers.formatCurrency(range_to, true);
+
+        props.set_form_data((prev_val: any) => ({
+            ...prev_val,
+            [name]: value,
+            [comp_field]: comp_val,
+            "price_range": `${displayFrom} - ${displayTo}`,
+        }));
+    };
 
     useEffect(() => {
         if (theme) {
@@ -146,7 +208,7 @@ const PriceRangeDD = ({ props }: { props: any }) => {
 
                     <div>
                         <FloatingOptions name='min_price' label='Minimum Price' px='px-2' py='py-2'
-                            value={props.form_data.min_price} options={minPriceOPtions}
+                            value={props.form_data.min_price} options={minPriceOptions}
                             handleSelectChange={(e) => handlePriceChange(e)} />
                     </div>
 
@@ -154,7 +216,7 @@ const PriceRangeDD = ({ props }: { props: any }) => {
 
                     <div>
                         <FloatingOptions name='max_price' label='Maximum Price' px='px-2' py='py-2'
-                            value={props.form_data.max_price} options={maxPriceOPtions}
+                            value={props.form_data.max_price} options={maxPriceOptions}
                             handleSelectChange={(e) => handlePriceChange(e)} />
                     </div>
 

@@ -14,7 +14,7 @@ import { hidePageLoader, showPageLoader } from '@/app/GlobalRedux/app/appSlice';
 import { Helpers } from '@/_lib/helper';
 
 const helpers = new Helpers();
-const HeroSearch_1 = () => {
+const HeroSearch_1 = ({ raw_data = {} }: { raw_data?: any }) => {
 
     const router = useRouter();
     const dispatch = useDispatch();
@@ -86,18 +86,29 @@ const HeroSearch_1 = () => {
                 <div className=' w-full flex items-center divide-x divide-gray-200/30 *:first:rounded-tl-2xl 
                     *:last:rounded-tr-2xl *:flex *:items-center font-medium text-sm lg:text-base *:px-5 *:py-3 lg:*:px-8 
                     lg:*:py-4 *:text-white cursor-pointer '>
-                    <div className={`${activeTab == "Buy"
-                        ? `bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)}`
-                        : `bg-${themeSett.secondary_color} hover:bg-${helpers.adjustColorShade(themeSett.secondary_color, -1)}`}`}
-                        onClick={() => setTab("Buy")}>Buy</div>
-                    <div className={`${activeTab == "Rent"
-                        ? `bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)}`
-                        : `bg-${themeSett.secondary_color} hover:bg-${helpers.adjustColorShade(themeSett.secondary_color, -1)}`}`}
-                        onClick={() => setTab("Rent")}>Rent</div>
-                    <div className={`${activeTab == "Short-Let"
-                        ? `bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)}`
-                        : `bg-${themeSett.secondary_color} hover:bg-${helpers.adjustColorShade(themeSett.secondary_color, -1)}`}`}
-                        onClick={() => setTab("Short-Let")}>Short-Let</div>
+                    {(Array.isArray(raw_data.search_tabs) && raw_data.search_tabs.includes("Buy Tab")) ?
+                        <div className={`${activeTab == "Buy"
+                            ? `bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)}`
+                            : `bg-${themeSett.secondary_color} hover:bg-${helpers.adjustColorShade(themeSett.secondary_color, -1)}`}`}
+                            onClick={() => setTab("Buy")}>Buy</div>
+                        : null
+                    }
+
+                    {(Array.isArray(raw_data.search_tabs) && raw_data.search_tabs.includes("Rent Tab")) ?
+                        <div className={`${activeTab == "Rent"
+                            ? `bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)}`
+                            : `bg-${themeSett.secondary_color} hover:bg-${helpers.adjustColorShade(themeSett.secondary_color, -1)}`}`}
+                            onClick={() => setTab("Rent")}>Rent</div>
+                        : null
+                    }
+
+                    {(Array.isArray(raw_data.search_tabs) && raw_data.search_tabs.includes("Short-Let Tab")) ?
+                        <div className={`${activeTab == "Short-Let"
+                            ? `bg-${themeSett.primary_color} hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)}`
+                            : `bg-${themeSett.secondary_color} hover:bg-${helpers.adjustColorShade(themeSett.secondary_color, -1)}`}`}
+                            onClick={() => setTab("Short-Let")}>Short-Let</div>
+                        : null
+                    }
                 </div>
 
                 <div className='w-full relative z-30'>
@@ -122,11 +133,11 @@ const HeroSearch_1 = () => {
                         <div className='lg:grid-cols-1'>
                             <div className='font-semibold text-lg'>Price Range</div>
                             <div className='w-full border-b border-gray-200'>
-                                <PriceRangeDD props={PropertyTypeDD_Data} />
+                                <PriceRangeDD props={PropertyTypeDD_Data} raw_data={raw_data} />
                             </div>
                         </div>
 
-                        <div className={`lg:grid-cols-1 bg-${themeSett.primary_color} 
+                        <div className={` py-3 tab:py-0 lg:grid-cols-1 bg-${themeSett.primary_color} 
                             hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)} 
                             rounded-lg flex items-center justify-center text-white cursor-pointer hover:shadow-2xl `}
                             onClick={() => Run_MLS_Search()}>

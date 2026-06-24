@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import PageRenderer from '@/components/PageRenderer';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { APIResponseProps } from '@/components/types';
 import { useDispatch } from 'react-redux';
 import { updateThemeSettings } from '../GlobalRedux/theme/themeSlice';
@@ -26,10 +26,23 @@ const LivePreviewPage = () => {
     const [themeData, setThemeData] = useState<any>({});
     const [theme_data_fetched, setThemeDataFetched] = useState(false);
 
+    // Track whether we're embedded in the editor and have received a live push yet,
+    // so we don't flash/overwrite live-edited state with a stale fetch.
+    const hasReceivedLiveUpdate = useRef(false);
+
     const DoneRendering = () => {
         // Send a message to the parent window
         window.parent.postMessage(
             { type: 'DONE_RENDERING' },
+            '*' // In production, replace '*' with your parent URL for security
+        );
+    };
+
+    const RequestPageData = () => {
+        // Ask the parent (editor) for the current in-memory data, in case
+        // it already has newer state than what's persisted on the server.
+        window.parent.postMessage(
+            { type: 'REQUEST_PAGE_DATA' },
             '*' // In production, replace '*' with your parent URL for security
         );
     };
@@ -62,6 +75,10 @@ const LivePreviewPage = () => {
                 }).then((resp): Promise<APIResponseProps> => {
                     return resp.json();
                 }).then(reqResp => {
+
+                    // If a live update already arrived from the parent editor while
+                    // this fetch was in flight, don't clobber it with stale server data.
+                    if (hasReceivedLiveUpdate.current) return;
 
                     if (reqResp.success) {
 
@@ -97,8 +114,38 @@ const LivePreviewPage = () => {
 
     }, [theme_uid]);
 
+    // Listen for live pushes from the parent editor window.
+    useEffect(() => {
+        const handleParentMessage = (event: MessageEvent) => {
+            // In production, verify event.origin against your editor's origin here.
+            if (!event.data || typeof event.data !== 'object') return;
+
+            if (event.data.type === 'UPDATE_PAGE_DATA') {
+                hasReceivedLiveUpdate.current = true;
+
+                const { themeSettings, pageUid } = event.data;
+                if (!themeSettings) return;
+
+                setThemeData((prev: any) => ({
+                    ...prev,
+                    theme_settings: themeSettings,
+                }));
+                dispatch(updateThemeSettings(themeSettings));
+                setPageData(themeSettings?.pages?.[pageUid || page_uid]);
+                setThemeDataFetched(true);
+            }
+        };
+
+        window.addEventListener('message', handleParentMessage);
+        return () => window.removeEventListener('message', handleParentMessage);
+    }, [page_uid, dispatch]);
+
     useEffect(() => {
         DoneRendering();
+        // Ask the parent for current data immediately — if the parent has
+        // newer in-memory state than the server, this avoids a double-render
+        // (stale fetch result, then correct pushed data).
+        RequestPageData();
     }, []);
 
     if (themeData && pageData) {

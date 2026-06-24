@@ -186,7 +186,6 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
         dispatch(hidePageLoader());
     }, []);
 
-
     useEffect(() => {
         if (theme) {
             setThemeSett(theme.theme_settings);
