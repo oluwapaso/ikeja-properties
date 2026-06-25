@@ -44,7 +44,7 @@ const ContactUsFormVar7 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                 data: {
                     "category": "contact_us_form",
                     "type": "section",
-                    "component": "ContactUsVarForm2",
+                    "component": "ContactUsVarForm7",
                     ...raw_data,
                 }
             },

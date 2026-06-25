@@ -300,7 +300,6 @@ const MortgageCalculatorVar5 = ({ is_theme = false, raw_data = {} }: { is_theme?
         if (step < totalSteps) {
             setStep(step + 1);
             var to = setTimeout(() => {
-                console.log("step", step, "show_calc", show_calc)
                 if (step + 1 === totalSteps) CalculateMortagage(show_calc);
             }, 250);
         }

@@ -41,7 +41,7 @@ const ContactUsFormVar3 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                 data: {
                     "category": "contact_us_form",
                     "type": "section",
-                    "component": "ContactUsVarForm2",
+                    "component": "ContactUsVarForm3",
                     ...raw_data,
                 }
             },
@@ -196,85 +196,92 @@ const ContactUsFormVar3 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
     if (themeSett) {
 
         return (
-            <section className="pt-32 pb-24 px-6 relative">
+            <section className="py-35 px-6 relative">
                 <div className="max-w-6xl mx-auto">
                     <div className="grid lg:grid-cols-2 gap-24">
                         {/* Left Column */}
                         <div className="space-y-16">
                             <div>
                                 <h1 className="text-[#1a1a1a] text-4xl md:text-5xl font-light leading-tight mb-6 tracking-tight">
-                                    Let&apos;s find your
-                                    <br />
-                                    <span className="italic">perfect place</span>
+                                    {raw_data.header || "Let's talk?"}
                                 </h1>
                                 <p className="text-[#666] text-lg leading-relaxed max-w-sm">
-                                    We believe everyone deserves a home that feels right.
-                                    Tell us what you&apos;re looking for.
+                                    {raw_data.sub_header || "It's all about the humans behind a brand and those experiencing it, we're right there. In the middle."}
                                 </p>
                             </div>
 
                             <div className="space-y-8">
                                 <div className="border-t border-[#e5e5e5] pt-6">
                                     <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Address</p>
-                                    <p className="text-[#1a1a1a]">245 Valencia Street<br />San Francisco, CA 94103</p>
+                                    <p className="text-[#1a1a1a] flex flex-col">
+                                        <span>{brker_info?.contact_info?.address}, {brker_info?.contact_info?.address_2}</span>
+                                        <span>{brker_info?.contact_info?.city} {brker_info?.contact_info?.state}</span>
+                                    </p>
                                 </div>
                                 <div className="border-t border-[#e5e5e5] pt-6">
                                     <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Email</p>
-                                    <a href="mailto:hello@haven.co" className="text-[#1a1a1a] hover:underline">hello@haven.co</a>
+                                    <p className="text-[#1a1a1a] flex flex-col">
+                                        <span>{brker_info?.email}</span>
+                                        <span>{brker_info?.departments_info?.support_email}</span>
+                                    </p>
                                 </div>
                                 <div className="border-t border-[#e5e5e5] pt-6">
                                     <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Phone</p>
-                                    <a href="tel:+14155550123" className="text-[#1a1a1a] hover:underline">+1 (415) 555-0123</a>
+                                    <p className="text-[#1a1a1a] flex flex-col">
+                                        <span>{brker_info?.contact_info?.phone_cell}</span>
+                                        <span>{brker_info?.contact_info?.phone_local}</span>
+                                        <span>{brker_info?.contact_info?.phone_toll_free}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Right Column - Form */}
-                        <div>
-                            <form onSubmit={handleSubmitClick} className="space-y-8">
+                        <div className='w-full flex flex-col space-y-5 mt-4'>
+                            <div className='grid grid-cols-2 gap-4'>
                                 <div>
-                                    <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Name</label>
-                                    <input
-                                        value={formData.firstname}
-                                        onChange={handleInputChange}
-                                        placeholder="Your full name"
-                                        className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
-                                    />
+                                    <FloatingInput name='firstname' label='First Name' placeholder='Enter your first name'
+                                        handleChange={(e) => handleInputChange(e)} value={formData.firstname} required />
                                 </div>
+
                                 <div>
-                                    <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Email</label>
-                                    <input
-                                        type="email"
-                                        value={formData.email}
-                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        placeholder="you@email.com"
-                                        className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
-                                    />
+                                    <FloatingInput name='lastname' label='Last Name' placeholder='Enter your last name'
+                                        handleChange={(e) => handleInputChange(e)} value={formData.lastname} required />
                                 </div>
-                                <div>
-                                    <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Phone</label>
-                                    <input
-                                        type="tel"
-                                        value={formData.phone}
-                                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                        placeholder="+1 (555) 000-0000"
-                                        className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Message</label>
-                                    <textarea
-                                        value={formData.message}
-                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        placeholder="Tell us about your ideal home..."
-                                        rows={4}
-                                        className="w-full bg-transparent border-0 border-b border-[#e5e5e5] px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus:outline-none focus:border-[#1a1a1a] resize-none"
-                                    />
-                                </div>
-                                <Button className="bg-[#1a1a1a] text-white hover:bg-[#333] rounded-full px-8 h-12 mt-4">
-                                    Send Message <BsArrowUpRight className="ml-2 h-4 w-4" />
-                                </Button>
-                            </form>
+                            </div>
+                            <div>
+                                <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Email</label>
+                                <input
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    placeholder="you@email.com"
+                                    className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
+                                />
+                            </div>
+                            <div>
+                                <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Phone</label>
+                                <input
+                                    type="tel"
+                                    value={formData.phone}
+                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                    placeholder="+1 (555) 000-0000"
+                                    className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
+                                />
+                            </div>
+                            <div>
+                                <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Message</label>
+                                <textarea
+                                    value={formData.message}
+                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                    placeholder="Tell us about your ideal home..."
+                                    rows={4}
+                                    className="w-full bg-transparent border-0 border-b border-[#e5e5e5] px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus:outline-none focus:border-[#1a1a1a] resize-none"
+                                />
+                            </div>
+                            <Button className="bg-[#1a1a1a] text-white hover:bg-[#333] rounded-full px-8 h-12 mt-4">
+                                Send Message <BsArrowUpRight className="ml-2 h-4 w-4" />
+                            </Button>
                         </div>
                     </div>
                 </div>

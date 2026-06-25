@@ -194,7 +194,7 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
     if (themeSett) {
         return (
-            <section className={`w-full pt-20 pb-20 relative ${themeSett.primary_font}`}>
+            <section className={`w-full py-35 relative ${themeSett.primary_font}`}>
                 <div className={`container mx-auto max-w-[1250px] grid grid-cols-2 gap-10
                     ${(is_theme && sectionHover) ? "p-[10px] border-2 border-sky-800 transition-all duration-300" : null}`}>
                     <div data-has-bg="yes" className="relative overflow-hidden rounded-2xl shadow-2xl"
@@ -208,7 +208,7 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                         <div className="absolute w-full h-full z-10 bg-gradient-to-b from-transparent to-black/50 from-80%"></div>
                     </div>
 
-                    <div className=" flex flex-col justify-center px-8">
+                    <div className=" flex flex-col justify-center">
                         <div className={`font-bold text-3xl ${themeSett.secondary_font}`}>{raw_data.header || "Let's talk?"}</div>
                         <div className={`leading-6 mt-2 ${themeSett.primary_font}`}>
                             {raw_data.sub_header || "It's all about the humans behind a brand and those experiencing it, we're right there. In the middle."}

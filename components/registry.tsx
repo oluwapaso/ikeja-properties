@@ -92,6 +92,15 @@ import MortgageCalculatorVar14 from "./mortgage-calculator/MortgageCalculatorVar
 import MortgageCalculatorVar15 from "./mortgage-calculator/MortgageCalculatorVar-15";
 import MortgageCalculatorVar16 from "./mortgage-calculator/MortgageCalculatorVar-16";
 
+//User Prefrences Page
+import PrefrenceVar1 from "./prefrences/PrefrenceVar-1";
+import PrefrenceVar2 from "./prefrences/PrefrenceVar-2";
+import PrefrenceVar3 from "./prefrences/PrefrenceVar-3";
+import PrefrenceVar4 from "./prefrences/PrefrenceVar-4";
+import PrefrenceVar5 from "./prefrences/PrefrenceVar-5";
+import PrefrenceVar6 from "./prefrences/PrefrenceVar-6";
+import PrefrenceVar7 from "./prefrences/PrefrenceVar-7";
+
 // Define props for each component explicitly
 type ComponentPropsMap = {
     //Navbars
@@ -172,6 +181,15 @@ type ComponentPropsMap = {
     MortgageCalculatorVar14: React.ComponentProps<typeof MortgageCalculatorVar14>;
     MortgageCalculatorVar15: React.ComponentProps<typeof MortgageCalculatorVar15>;
     MortgageCalculatorVar16: React.ComponentProps<typeof MortgageCalculatorVar16>;
+
+    //User Prefrences Page
+    PrefrenceVar1: React.ComponentProps<typeof PrefrenceVar1>;
+    PrefrenceVar2: React.ComponentProps<typeof PrefrenceVar2>;
+    PrefrenceVar3: React.ComponentProps<typeof PrefrenceVar3>;
+    PrefrenceVar4: React.ComponentProps<typeof PrefrenceVar4>;
+    PrefrenceVar5: React.ComponentProps<typeof PrefrenceVar5>;
+    PrefrenceVar6: React.ComponentProps<typeof PrefrenceVar6>;
+    PrefrenceVar7: React.ComponentProps<typeof PrefrenceVar7>;
 
     LoggedInMenu: React.ComponentProps<typeof LoggedInMenu>;
     NoComponents: React.ComponentProps<typeof NoComponents>;
@@ -268,6 +286,15 @@ export const componentRegistry = {
     MortgageCalculatorVar14,
     MortgageCalculatorVar15,
     MortgageCalculatorVar16,
+
+    //User Prefrences Page
+    PrefrenceVar1,
+    PrefrenceVar2,
+    PrefrenceVar3,
+    PrefrenceVar4,
+    PrefrenceVar5,
+    PrefrenceVar6,
+    PrefrenceVar7,
 
     LoggedInMenu,
     NoComponents,
