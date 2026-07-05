@@ -13,6 +13,7 @@ import { BsArrowDown, BsArrowUp, BsArrowUpRight, BsGear } from 'react-icons/bs'
 import { Button } from '../Button'
 import { CgLock, CgMail } from 'react-icons/cg'
 import { FaLandmark } from 'react-icons/fa6'
+import { FaQuestionCircle } from 'react-icons/fa'
 
 const helpers = new Helpers();
 const ContactUsFormVar5 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean, raw_data?: any }) => {
@@ -189,6 +190,14 @@ const ContactUsFormVar5 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
         dispatch(hidePageLoader());
     }, []);
 
+    useEffect(() => {
+        setFormData(prevData => {
+            return {
+                ...prevData,
+                "subject": selectedInterest
+            }
+        })
+    }, [selectedInterest]);
 
     useEffect(() => {
         if (theme) {
@@ -196,47 +205,75 @@ const ContactUsFormVar5 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
         }
     }, [theme]);
 
+
+
     const interests = [
         { id: "buying", icon: BiHome, label: "Buying", desc: "Looking to purchase" },
         { id: "selling", icon: BiBuilding, label: "Selling", desc: "List your property" },
         { id: "investing", icon: FaLandmark, label: "Investing", desc: "Investment opportunities" },
+        { id: "general", icon: FaQuestionCircle, label: "Other", desc: "General Enquiries" },
     ]
 
     if (themeSett) {
 
         return (
-            <section className="py-16 px-6 relative">
+            <section className="py-35 px-6 relative">
                 <div className="max-w-7xl mx-auto">
                     {/* Header Section */}
                     <div className="text-center max-w-2xl mx-auto mb-16">
-                        <span className="inline-block bg-blue-100 text-blue-700 text-xs font-medium px-3 py-1 rounded-full mb-4">
-                            Contact Us
-                        </span>
                         <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                            How can we help you today?
+                            {raw_data.header || "How can we help you today?"}
                         </h1>
                         <p className="text-slate-600 text-lg">
-                            Whether you&apos;re buying, selling, or just exploring your options,
-                            our team is here to assist you every step of the way.
+                            {raw_data.sub_header || "It's all about the humans behind a brand and those experiencing it, we're right there. In the middle."}
                         </p>
                     </div>
 
                     {/* Contact Cards */}
-                    <div className="grid md:grid-cols-4 gap-4 mb-16">
-                        {[
-                            { icon: BiPhoneCall, title: "Phone", value: "(555) 234-5678", color: "bg-green-50 text-green-600" },
-                            { icon: CgMail, title: "Email", value: "info@skyline.com", color: "bg-blue-50 text-blue-600" },
-                            { icon: BiMapPin, title: "Office", value: "123 Market St, SF", color: "bg-orange-50 text-orange-600" },
-                            { icon: CgLock, title: "Hours", value: "Mon-Fri 9-6", color: "bg-purple-50 text-purple-600" },
-                        ].map((item, i) => (
-                            <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                                <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4`}>
-                                    <item.icon className="h-5 w-5" />
-                                </div>
-                                <p className="text-slate-500 text-sm mb-1">{item.title}</p>
-                                <p className="text-slate-900 font-medium">{item.value}</p>
+                    <div className="grid md:grid-cols-3 gap-4 mb-16">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                            <div className={`w-12 h-12 rounded-xl flex bg-green-50 text-green-600 items-center justify-center mb-4`}>
+                                <BiPhoneIncoming className="h-5 w-5" />
                             </div>
-                        ))}
+                            <p className="text-slate-500 text-sm mb-1">Call us</p>
+                            <p className="text-slate-900 font-medium flex flex-col space-y-1.5">
+                                <a href={`tel:${brker_info?.contact_info?.phone_cell}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.contact_info?.phone_cell}
+                                </a>
+                                <a href={`tel:${brker_info?.contact_info?.phone_local}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.contact_info?.phone_local}
+                                </a>
+                                <a href={`tel:${brker_info?.contact_info?.phone_toll_free}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.contact_info?.phone_toll_free}
+                                </a>
+                            </p>
+                        </div>
+
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                            <div className={`w-12 h-12 rounded-xl flex bg-blue-50 text-blue-600 items-center justify-center mb-4`}>
+                                <BiPhoneIncoming className="h-5 w-5" />
+                            </div>
+                            <p className="text-slate-500 text-sm mb-1">Email us</p>
+                            <p className="text-slate-900 font-medium flex flex-col space-y-1.5">
+                                <a href={`mailto:${brker_info?.email}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.email}
+                                </a>
+                                <a href={`mailto:${brker_info?.departments_info?.support_email}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.departments_info?.support_email}
+                                </a>
+                            </p>
+                        </div>
+
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                            <div className={`w-12 h-12 rounded-xl flex bg-orange-50 text-orange-600 items-center justify-center mb-4`}>
+                                <CgMail className="h-5 w-5" />
+                            </div>
+                            <p className="text-slate-500 text-sm mb-1">Visit us</p>
+                            <p className="text-slate-900 font-medium flex flex-col space-y-1.5">
+                                <span>{brker_info?.contact_info?.address}, {brker_info?.contact_info?.address_2}</span>
+                                <span>{brker_info?.contact_info?.city} {brker_info?.contact_info?.state}</span>
+                            </p>
+                        </div>
                     </div>
 
                     {/* Form Section */}
@@ -244,7 +281,7 @@ const ContactUsFormVar5 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                         <div className="grid lg:grid-cols-5">
                             {/* Left - Interest Selection */}
                             <div className="lg:col-span-2 bg-slate-50 p-8 lg:p-12">
-                                <h2 className="text-2xl font-semibold text-slate-900 mb-2">I&apos;m interested in...</h2>
+                                <h2 className="text-2xl font-semibold text-slate-900 mb-2">I'm interested in...</h2>
                                 <p className="text-slate-500 mb-8">Select your primary interest to help us serve you better.</p>
 
                                 <div className="space-y-3">
@@ -253,11 +290,10 @@ const ContactUsFormVar5 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                                             key={item.id}
                                             type="button"
                                             onClick={() => setSelectedInterest(item.id)}
-                                            className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left ${selectedInterest === item.id
+                                            className={`w-full cursor-pointer flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left ${selectedInterest === item.id
                                                 ? "border-blue-600 bg-blue-50"
                                                 : "border-slate-200 bg-white hover:border-slate-300"
-                                                }`}
-                                        >
+                                                }`} >
                                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${selectedInterest === item.id ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-600"
                                                 }`}>
                                                 <item.icon className="h-5 w-5" />
@@ -280,117 +316,70 @@ const ContactUsFormVar5 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                                         <BiMessageSquare className="h-5 w-5 text-blue-600" />
                                     </div>
                                     <div>
-                                        <h2 className="text-xl font-semibold text-slate-900">Send us a message</h2>
-                                        <p className="text-slate-500 text-sm">We&apos;ll respond within 24 hours</p>
+                                        <h2 className="text-xl font-semibold text-slate-900">{raw_data.header_2 || "Send us a message"}</h2>
+                                        <p className="text-slate-500 text-sm">{raw_data.sub_header_2 || "We'll respond within 24 hours"}</p>
                                     </div>
                                 </div>
 
-                                <form onSubmit={handleSubmitClick} className="space-y-5">
-                                    <div className="grid md:grid-cols-2 gap-5">
+                                <div className='w-full flex flex-col space-y-5'>
+                                    <div className='grid grid-cols-2 gap-4'>
                                         <div>
-                                            <label className="text-sm font-medium text-slate-700 block mb-2">Full Name</label>
-                                            <input
-                                                value={formData.firstname}
-                                                onChange={handleInputChange}
-                                                className="h-12 border-slate-200 focus:border-blue-500 rounded-xl"
-                                                placeholder="Your name"
-                                            />
+                                            <FloatingInput name='firstname' label='First Name' placeholder='Enter your first name'
+                                                handleChange={(e) => handleInputChange(e)} value={formData.firstname} required />
                                         </div>
+
                                         <div>
-                                            <label className="text-sm font-medium text-slate-700 block mb-2">Email</label>
-                                            <input
-                                                type="email"
-                                                value={formData.email}
-                                                onChange={handleInputChange}
-                                                className="h-12 border-slate-200 focus:border-blue-500 rounded-xl"
-                                                placeholder="you@email.com"
-                                            />
+                                            <FloatingInput name='lastname' label='Last Name' placeholder='Enter your last name'
+                                                handleChange={(e) => handleInputChange(e)} value={formData.lastname} required />
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label className="text-sm font-medium text-slate-700 block mb-2">Phone Number</label>
-                                        <input
-                                            type="tel"
-                                            value={formData.phone}
-                                            onChange={handleInputChange}
-                                            className="h-12 border-slate-200 focus:border-blue-500 rounded-xl"
-                                            placeholder="(555) 000-0000"
-                                        />
+                                        <FloatingInput name='email' label='Email' placeholder='Enter your email'
+                                            handleChange={(e) => handleInputChange(e)} value={formData.email} required />
                                     </div>
-
                                     <div>
-                                        <label className="text-sm font-medium text-slate-700 block mb-2">Message</label>
-                                        <textarea
-                                            value={formData.message}
-                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            rows={4}
-                                            className="w-full border border-slate-200 focus:border-blue-500 rounded-xl p-4 text-slate-900 focus:outline-none resize-none"
-                                            placeholder="How can we help you?"
-                                        />
+                                        <FloatingInput name='phone' label='Phone Number' placeholder='Enter your phone number'
+                                            handleChange={(e) => handleInputChange(e)} value={formData.phone} required />
+                                    </div>
+                                    <div>
+                                        <FloatingTextarea name='message' label='Message' placeholder='Enter your message' height='160px'
+                                            handleChange={(e) => handleInputChange(e)} value={formData.message} required />
                                     </div>
 
-                                    <Button className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium">
-                                        Send Message
-                                    </Button>
-                                </form>
+                                    <div className='flex justify-end w-full'>
+                                        <div className='px-7 py-4 text-white bg-buttons-primary rounded hover:shadow-2xl cursor-pointer
+                                        flex items-center justify-center space-x-2 ' onClick={handleSubmitClick}>
+                                            <span>{raw_data.button_text || "Send Message"}</span>
+                                            <BiSend size={25} className='' />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
                 {is_theme && (
-                    <div className=' absolute z-[1000] right-1.5 top-1 space-x-2 flex items-center justify-end *:bg-gray-800 
+                    <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
                     *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
-                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BiLayerPlus size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Add new section after
-                            </span>
-                        </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsGear size={17} />
 
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
                                 Section settings
                             </span>
                         </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            onClick={() => handleCompPickerClick("CHANGE_LAYOUT")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiRefresh size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
-                                Replace Section
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowUp size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Move Section Up
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowDown size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Move Section Down
+                                Change Layout
                             </span>
                         </div>
 

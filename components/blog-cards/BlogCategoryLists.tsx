@@ -45,8 +45,8 @@ const BlogCategoryLists = ({ curr_cat }: { curr_cat?: string }) => {
     }, [theme]);
 
     return (
-        <div className='w-full mb-5'>
-            <div className='w-full font-play-fair-display text-xl'>News Categories</div>
+        <div className='w-full mb-5 p-4 rounded bg-white'>
+            <div className='w-full font-play-fair-display text-xl pb-2 border-b border-gray-300'>Categories</div>
 
             {!catsLoaded && <div className='col-span-full h-[250px] bg-white flex items-center justify-center'>
                 <AiOutlineLoading3Quarters size={30} className='animate animate-spin' />

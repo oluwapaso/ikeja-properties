@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BiEnvelope, BiLayerPlus, BiMapPin, BiPhoneCall, BiPhoneIncoming, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
+import { BiEnvelope, BiEnvelopeOpen, BiLayerPlus, BiMapPin, BiPhoneCall, BiPhoneIncoming, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
 import FloatingInput from '@/components/FloatingInput'
 import FloatingTextarea from '@/components/FloatingTextarea'
 import { toast } from 'react-toastify'
@@ -212,25 +212,44 @@ const ContactUsFormVar3 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
                             <div className="space-y-8">
                                 <div className="border-t border-[#e5e5e5] pt-6">
-                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Address</p>
-                                    <p className="text-[#1a1a1a] flex flex-col">
+                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+                                        <BiMapPin size={16} className={`text-${themeSett.primary_color}`} />
+                                        <span>Address</span>
+                                    </p>
+                                    <p className="text-[#1a1a1a] flex flex-col space-y-1.5">
                                         <span>{brker_info?.contact_info?.address}, {brker_info?.contact_info?.address_2}</span>
                                         <span>{brker_info?.contact_info?.city} {brker_info?.contact_info?.state}</span>
                                     </p>
                                 </div>
                                 <div className="border-t border-[#e5e5e5] pt-6">
-                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Email</p>
-                                    <p className="text-[#1a1a1a] flex flex-col">
-                                        <span>{brker_info?.email}</span>
-                                        <span>{brker_info?.departments_info?.support_email}</span>
+                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+                                        <BiEnvelopeOpen size={16} className={`text-${themeSett.primary_color}`} />
+                                        <span>Email</span>
+                                    </p>
+                                    <p className="text-[#1a1a1a] flex flex-col space-y-1.5">
+                                        <a href={`mailto:${brker_info?.email}`} className=" font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.email}
+                                        </a>
+                                        <a href={`mailto:${brker_info?.departments_info?.support_email}`} className=" font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.departments_info?.support_email}
+                                        </a>
                                     </p>
                                 </div>
-                                <div className="border-t border-[#e5e5e5] pt-6">
-                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2">Phone</p>
+                                <div className="border-t border-[#e5e5e5] pt-6 space-y-1.5">
+                                    <p className="text-xs text-[#999] uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+                                        <BiPhoneIncoming size={16} className={`text-${themeSett.primary_color}`} />
+                                        <span>Phone</span>
+                                    </p>
                                     <p className="text-[#1a1a1a] flex flex-col">
-                                        <span>{brker_info?.contact_info?.phone_cell}</span>
-                                        <span>{brker_info?.contact_info?.phone_local}</span>
-                                        <span>{brker_info?.contact_info?.phone_toll_free}</span>
+                                        <a href={`tel:${brker_info?.contact_info?.phone_cell}`} className="font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.contact_info?.phone_cell}
+                                        </a>
+                                        <a href={`tel:${brker_info?.contact_info?.phone_local}`} className="font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.contact_info?.phone_local}
+                                        </a>
+                                        <a href={`tel:${brker_info?.contact_info?.phone_toll_free}`} className="font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.contact_info?.phone_toll_free}
+                                        </a>
                                     </p>
                                 </div>
                             </div>
@@ -249,56 +268,38 @@ const ContactUsFormVar3 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                                         handleChange={(e) => handleInputChange(e)} value={formData.lastname} required />
                                 </div>
                             </div>
+
                             <div>
-                                <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Email</label>
-                                <input
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    placeholder="you@email.com"
-                                    className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
-                                />
+                                <FloatingInput name='email' label='Email' placeholder='Enter your email'
+                                    handleChange={(e) => handleInputChange(e)} value={formData.email} required />
                             </div>
                             <div>
-                                <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Phone</label>
-                                <input
-                                    type="tel"
-                                    value={formData.phone}
-                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                    placeholder="+1 (555) 000-0000"
-                                    className="bg-transparent border-0 border-b border-[#e5e5e5] rounded-none h-12 px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus-visible:ring-0 focus-visible:border-[#1a1a1a]"
-                                />
+                                <FloatingInput name='phone' label='Phone Number' placeholder='Enter your phone number'
+                                    handleChange={(e) => handleInputChange(e)} value={formData.phone} required />
                             </div>
                             <div>
-                                <label className="text-xs text-[#999] uppercase tracking-wider block mb-3">Message</label>
-                                <textarea
-                                    value={formData.message}
-                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    placeholder="Tell us about your ideal home..."
-                                    rows={4}
-                                    className="w-full bg-transparent border-0 border-b border-[#e5e5e5] px-0 text-[#1a1a1a] placeholder:text-[#ccc] focus:outline-none focus:border-[#1a1a1a] resize-none"
-                                />
+                                <FloatingInput name='subject' label='Subject' placeholder='Message subject'
+                                    handleChange={(e) => handleInputChange(e)} value={formData.subject} required />
                             </div>
-                            <Button className="bg-[#1a1a1a] text-white hover:bg-[#333] rounded-full px-8 h-12 mt-4">
-                                Send Message <BsArrowUpRight className="ml-2 h-4 w-4" />
-                            </Button>
+                            <div>
+                                <FloatingTextarea name='message' label='Message' placeholder='Enter your message' height='160px'
+                                    handleChange={(e) => handleInputChange(e)} value={formData.message} required />
+                            </div>
+
+                            <div className='flex justify-end w-full'>
+                                <div className='px-7 py-4 text-white bg-buttons-primary rounded hover:shadow-2xl cursor-pointer
+                                    flex items-center justify-center space-x-2 ' onClick={handleSubmitClick}>
+                                    <span>{raw_data.button_text || "Send Message"}</span>
+                                    <BiSend size={25} className='' />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {is_theme && (
-                    <div className=' absolute z-[1000] right-1.5 top-1 space-x-2 flex items-center justify-end *:bg-gray-800 
+                    <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
                     *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
-                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BiLayerPlus size={17} />
-
-                            <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Add new section after
-                            </span>
-                        </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
@@ -311,32 +312,11 @@ const ContactUsFormVar3 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                         </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            onClick={() => handleCompPickerClick("CHANGE_LAYOUT")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiRefresh size={17} />
-
                             <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
-                                Replace Section
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowUp size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Move Section Up
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowDown size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Move Section Down
+                                Change Layout
                             </span>
                         </div>
 

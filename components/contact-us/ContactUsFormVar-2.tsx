@@ -273,9 +273,15 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
                             <div className={`font-semibold text-lg ${themeSett.secondary_font}`}>Contact</div>
                             <div className='text-gray-500 font-medium flex flex-col space-y-1'>
-                                <span>{brker_info?.contact_info?.phone_cell}</span>
-                                <span>{brker_info?.contact_info?.phone_local}</span>
-                                <span>{brker_info?.contact_info?.phone_toll_free}</span>
+                                <a href={`tel:${brker_info?.contact_info?.phone_cell}`} className="font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.contact_info?.phone_cell}
+                                </a>
+                                <a href={`tel:${brker_info?.contact_info?.phone_local}`} className="font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.contact_info?.phone_local}
+                                </a>
+                                <a href={`tel:${brker_info?.contact_info?.phone_toll_free}`} className="font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.contact_info?.phone_toll_free}
+                                </a>
                             </div>
                         </div>
 
@@ -286,26 +292,20 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
                             <div className={`font-semibold text-lg ${themeSett.secondary_font}`}>Email</div>
                             <div className='text-gray-500 font-medium flex flex-col space-y-1'>
-                                <span>{brker_info?.email}</span>
-                                <span>{brker_info?.departments_info?.support_email}</span>
+                                <a href={`mailto:${brker_info?.email}`} className=" font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.email}
+                                </a>
+                                <a href={`mailto:${brker_info?.departments_info?.support_email}`} className=" font-medium hover:text-sky-700 transition-colors">
+                                    {brker_info?.departments_info?.support_email}
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {is_theme && (
-                    <div className=' absolute z-[1000] right-1.5 top-1 space-x-2 flex items-center justify-end *:bg-gray-800 
+                    <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
                     *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
-                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BiLayerPlus size={17} />
-
-                            <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Add new section after
-                            </span>
-                        </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
@@ -318,32 +318,12 @@ const ContactUsVarForm2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                         </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            onClick={() => handleCompPickerClick("CHANGE_LAYOUT")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiRefresh size={17} />
 
                             <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
-                                Replace Section
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowUp size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Move Section Up
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowDown size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Move Section Down
+                                Change Layout
                             </span>
                         </div>
 

@@ -77,7 +77,7 @@ const OurServicesVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_the
             "account_id": process.env.NEXT_PUBLIC_ACCOUNT_ID,
             "size": size,
             "skip": "0",
-            "fields": "service_uid,title,slug,excerpt,descriptions"
+            "fields": "service_uid,title,icon,slug,excerpt,descriptions"
         }
 
         const response = await window.MLS_Util.LoadOurServices(payload);

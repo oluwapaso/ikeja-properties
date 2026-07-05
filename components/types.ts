@@ -194,3 +194,34 @@ export const DEFAULT_SEARCH: MlsSearchQuery = {
         status: ["Active"],
     },
 }
+
+
+export type BlogPost = {
+    post_uid: string
+    company_uid: string
+    title: string
+    slug: string
+    category_uid: string
+    category_name: string
+    summary: string
+    post_body: string
+    header_image_large: string
+    header_image_small: string
+    clicks: number
+    views: number
+    comments: number
+    channels: string[]
+    date_added: string
+}
+
+export type Neighorhood = {
+  neighborhood_uid: string
+  company_uid: string
+  title: string
+  summary: string
+  slug: string
+  header_image_large:string
+  header_image_small: string
+  views: number
+  comments: number
+}

@@ -5,6 +5,7 @@ import { Providers } from "@/app/GlobalRedux/providers";
 import ThemeSettings from "@/components/ThemeSettings";
 import PageLoaderMain from "@/components/PageLoaderMain";
 import { ToastContainer } from "react-toastify";
+import { RouteProgressHandler } from "../RouteProgressHandler";
 
 export const metadata: Metadata = {
     title: "Homely",
@@ -37,6 +38,7 @@ export default function RootLayout({
                     {children}
                     <PageLoaderMain />
                     <ToastContainer />
+                    <RouteProgressHandler />
                 </Providers>
             </body>
         </html>

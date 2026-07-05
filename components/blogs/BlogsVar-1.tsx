@@ -8,7 +8,6 @@ import { BsArrowDown, BsArrowUp, BsGear } from 'react-icons/bs';
 import CustomLinkMain from '../CustomLink';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { Helpers } from '@/_lib/helper';
-import NeighCardVar1 from '../neighborhood-cards/NeighCardVar-1';
 import BlogCardVar1 from '../blog-cards/BlogCardVar-1';
 import { BiLayerPlus, BiRefresh, BiTrash } from 'react-icons/bi';
 
@@ -30,9 +29,9 @@ const BlogsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_theme?: b
             {
                 type: 'OPEN_EDITOR_SETTINGS',
                 data: {
-                    "category": "our_services",
+                    "category": "blogs",
                     "type": "section",
-                    "component": "OurServicesVar1",
+                    "component": "BlogsVar1",
                     ...raw_data,
                 }
             },
@@ -58,7 +57,7 @@ const BlogsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_theme?: b
             {
                 type: event_type,
                 component_index: raw_data?.component_index,
-                component_type: "Featured Listsings"
+                component_type: "Blog Posts"
             },
             '*' // In production, replace '*' with your parent URL for security
         );
@@ -82,17 +81,22 @@ const BlogsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_theme?: b
             "fields": "*"
         }
 
-        const response = await window.MLS_Util.LoadBlogPosts(payload);
+        try {
+            const response = await window.MLS_Util.LoadBlogPosts(payload);
 
-        let resp_message = response.message;
-        let status_code = response.status_code;
-        if (status_code == 200) {
-            setBlogs(response.data.all_posts);
-        } else {
-            setBlogsError(resp_message)
+            let resp_message = response.message;
+            let status_code = response.status_code;
+            if (status_code == 200) {
+                setBlogs(response.data.all_posts);
+            } else {
+                setBlogsError(resp_message)
+            }
+
+        } catch (e: any) {
+            setBlogsError("Failed to load posts")
+        } finally {
+            setBlogsLoaded(true);
         }
-
-        setBlogsLoaded(true);
 
     }
 
@@ -108,7 +112,7 @@ const BlogsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_theme?: b
 
     if (themeSett) {
         return (
-            <section className="w-full py-20 px-3 md:px-0 flex justify-center bg-gray-100 relative" data-show-blogs="Yes">
+            <section className="w-full py-35 px-3 md:px-0 flex justify-center bg-gray-100 relative">
                 <div className={`container flex flex-col 
                     ${(is_theme && sectionHover) ? "p-[10px] border-2 border-sky-800 transition-all duration-300" : null}`}>
 
@@ -193,26 +197,6 @@ const BlogsVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_theme?: b
                             <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                                 text-white text-xs'>
                                 Replace Section
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowUp size={17} />
-
-                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
-                                Move Section Up
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowDown size={17} />
-
-                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
-                                Move Section Down
                             </span>
                         </div>
 

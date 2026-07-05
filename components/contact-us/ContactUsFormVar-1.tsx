@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BiLayerPlus, BiPhoneCall, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
+import { BiEnvelopeOpen, BiLayerPlus, BiPhoneCall, BiRefresh, BiSend, BiTrash } from 'react-icons/bi'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import FloatingInput from '@/components/FloatingInput'
 import FloatingTextarea from '@/components/FloatingTextarea'
@@ -211,10 +211,10 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                                 *:flex *:items-center *:space-x-5'>
                                 <div className=''>
                                     <div className='shrink-0 relative'>
-                                        <div className={` size-14 hover:shadow-2xl bg-${themeSett.primary_color} flex items-center 
-                                        justify-center text-white cursor-pointer rounded-full after:size-18 after:absolute 
-                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} 
-                                        after:-z-0`}>
+                                        <div className={`bg-${themeSett.primary_color} text-${themeSett.primary_button_text} size-14 hover:shadow-2xl 
+                                        flex items-center justify-center cursor-pointer rounded-full after:size-18 after:absolute 
+                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -30)} 
+                                        after:-z-10`}>
                                             <FaMapMarkerAlt size={28} className=" relative z-10" />
                                         </div>
                                     </div>
@@ -228,18 +228,44 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
                                 <div>
                                     <div className='shrink-0 relative'>
-                                        <div className={` size-14 hover:shadow-2xl bg-${themeSett.primary_color} flex items-center 
-                                        justify-center text-white cursor-pointer rounded-full after:size-18 after:absolute 
-                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} 
-                                        after:-z-0`}>
+                                        <div className={`bg-${themeSett.primary_color} text-${themeSett.primary_button_text} flex items-center 
+                                        size-14 hover:shadow-2xl justify-center  cursor-pointer rounded-full after:size-18 after:absolute 
+                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -30)} 
+                                        after:-z-10`}>
                                             <BiPhoneCall size={28} className=" relative z-10" />
                                         </div>
                                     </div>
 
                                     <div className=' flex flex-col space-y-1'>
-                                        <div>{brker_info?.contact_info?.phone_cell}</div>
-                                        <div>{brker_info?.contact_info?.phone_local}</div>
-                                        <div>{brker_info?.contact_info?.phone_toll_free}</div>
+                                        <a href={`tel:${brker_info?.contact_info?.phone_cell}`} className="font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.contact_info?.phone_cell}
+                                        </a>
+                                        <a href={`tel:${brker_info?.contact_info?.phone_local}`} className="font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.contact_info?.phone_local}
+                                        </a>
+                                        <a href={`tel:${brker_info?.contact_info?.phone_toll_free}`} className="font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.contact_info?.phone_toll_free}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className='shrink-0 relative'>
+                                        <div className={`bg-${themeSett.primary_color} text-${themeSett.primary_button_text} flex items-center 
+                                        size-14 hover:shadow-2xl justify-center  cursor-pointer rounded-full after:size-18 after:absolute 
+                                        after:rounded-full after:bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -30)} 
+                                        after:-z-10`}>
+                                            <BiEnvelopeOpen size={28} className=" relative z-10" />
+                                        </div>
+                                    </div>
+
+                                    <div className=' flex flex-col space-y-1'>
+                                        <a href={`mailto:${brker_info?.email}`} className=" font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.email}
+                                        </a>
+                                        <a href={`mailto:${brker_info?.departments_info?.support_email}`} className=" font-medium hover:text-sky-700 transition-colors">
+                                            {brker_info?.departments_info?.support_email}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -288,55 +314,24 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
 
                 {is_theme && (
                     <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
-                        *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
-                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BiLayerPlus size={17} />
-
-                            <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Add new section after
-                            </span>
-                        </div>
+                    *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsGear size={17} />
 
                             <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                            text-white text-xs'>
                                 Section settings
                             </span>
                         </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            onClick={() => handleCompPickerClick("CHANGE_LAYOUT")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiRefresh size={17} />
-
                             <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
-                                Replace Section
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowUp size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
-                                Move Section Up
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowDown size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
-                                Move Section Down
+                            text-white text-xs'>
+                                Change Layout
                             </span>
                         </div>
 
@@ -345,7 +340,7 @@ const ContactUsFormVar1 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                             <BiTrash size={17} />
 
                             <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                                text-white text-xs'>
+                            text-white text-xs'>
                                 Remove Section Down
                             </span>
                         </div>

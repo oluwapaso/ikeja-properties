@@ -338,7 +338,7 @@ const PrefrenceVar2 = ({ is_theme = false, raw_data = {} }: { is_theme?: boolean
                                 ${activeTab == "Details" ? "border-l-4 border-blue-600 text-blue-600" : "text-gray-600"}`}
                                     onClick={() => setActiveTab("Details")}>Personal Info</div>
                                 <div className={`px-4 py-3 bg-blue-50 rounded cursor-pointer
-                                ${activeTab == "Details" ? "border-l-4 border-blue-600 text-blue-600" : "text-gray-600"}`}
+                                ${activeTab == "Socials" ? "border-l-4 border-blue-600 text-blue-600" : "text-gray-600"}`}
                                     onClick={() => setActiveTab("Socials")}>Socials</div>
                                 <div className={`px-4 py-3 bg-blue-50 rounded cursor-pointer
                                 ${activeTab == "Subscriptions" ? "border-l-4 border-blue-600 text-blue-600" : "text-gray-600"}`}

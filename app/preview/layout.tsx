@@ -8,6 +8,7 @@ import Script from "next/script";
 import ThemeSettings from "@/components/ThemeSettings";
 import PropertyModal from "@/components/modals/PropertyModal";
 import PopUpAds from "@/components/ads/PopUpAds";
+import { RouteProgressHandler } from "../RouteProgressHandler";
 
 export const metadata: Metadata = {
   title: "Preview Page",
@@ -39,6 +40,7 @@ export default async function RootLayout({
           <PropertyModal />
           <PopUpAds />
           <ToastContainer />
+          <RouteProgressHandler />
         </Providers>
       </body>
     </html>

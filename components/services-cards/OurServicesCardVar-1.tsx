@@ -7,6 +7,7 @@ import { RootState } from '@/app/GlobalRedux/store';
 import { useSelector } from 'react-redux';
 import { BsStars } from 'react-icons/bs';
 import { Helpers } from '@/_lib/helper';
+import DynamicIcon from '../DynamicIcon';
 
 const helpers = new Helpers();
 const OurServicesCardVar1 = ({ service_info, is_theme = false }: { service_info: any, is_theme?: boolean }) => {
@@ -27,7 +28,7 @@ const OurServicesCardVar1 = ({ service_info, is_theme = false }: { service_info:
             <CustomLinkMain href={`${themeSett.theme_prefix}/service-details/${service_info.slug}`} is_theme={is_theme}
                 className=' flex items-start space-x-4 tab:space-x-8'>
                 <div className={`bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} text-${themeSett.primary_color} p-2 rounded-md`} >
-                    <BsStars size={55} />
+                    <DynamicIcon icon={service_info.icon} size={40} className={`text-${themeSett.primary_color} fill-${themeSett.primary_color}`} />
                 </div>
                 <div className=' flex flex-col'>
                     <div className='font-semibold text-xl'>{service_info.title}</div>

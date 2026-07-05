@@ -205,21 +205,21 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
     if (themeSett) {
 
         return (
-            <section className="py-12 px-6 relative">
+            <section className="py-35 px-6 relative">
                 <div className="max-w-6xl mx-auto">
                     {/* Hero */}
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 bg-rose-100 text-rose-700 px-4 py-2 rounded-full text-sm mb-6">
-                            <BiStar className="h-4 w-4 fill-rose-400 text-rose-400" />
-                            <span>We&apos;re here to help you find your happy place</span>
+                        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm mb-6 
+                        bg-${helpers.adjustColorShadeByPercent(themeSett.primary_color, -40)} text-${themeSett.primary_color} `}>
+                            <BiStar className={`h-4 w-4 text-${themeSett.primary_color}`} />
+                            <span>{raw_data.badge_text || "We're here to help you find your happy place"}</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-semibold text-[#3d3027] mb-4 leading-tight">
-                            Let&apos;s start a<br />
-                            <span className="text-rose-500">conversation</span>
+                            {raw_data.header || "Let's start a"}<br />
+                            <span className={`text-${themeSett.primary_color}`}>{raw_data.colored_header || "conversation"}</span>
                         </h1>
                         <p className="text-[#6b5c4c] text-lg max-w-xl mx-auto">
-                            Finding a home should feel exciting, not stressful.
-                            Tell us what your dream looks like.
+                            {raw_data.sub_header || "It's all about the humans behind a brand and those experiencing it, we're right there. In the middle."}
                         </p>
                     </div>
 
@@ -231,21 +231,34 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                                     <BiPhoneCall className="h-5 w-5 text-rose-600" />
                                 </div>
                                 <h3 className="text-[#3d3027] font-medium mb-1">Give us a call</h3>
-                                <p className="text-[#6b5c4c] text-sm mb-3">We&apos;re available Mon-Sat</p>
-                                <a href="tel:+15551234567" className="text-[#3d3027] font-medium hover:text-rose-600 transition-colors">
-                                    +1 (555) 123-4567
-                                </a>
+                                <p className="text-[#6b5c4c] text-sm mb-3">We're available 24/7</p>
+                                <div className='flex flex-col space-y-1.5'>
+                                    <a href={`tel:${brker_info?.contact_info?.phone_cell}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                        {brker_info?.contact_info?.phone_cell}
+                                    </a>
+                                    <a href={`tel:${brker_info?.contact_info?.phone_local}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                        {brker_info?.contact_info?.phone_local}
+                                    </a>
+                                    <a href={`tel:${brker_info?.contact_info?.phone_toll_free}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                        {brker_info?.contact_info?.phone_toll_free}
+                                    </a>
+                                </div>
                             </div>
 
-                            <div className="bg-white rounded-3xl p-6 shadow-sm">
+                            <div className="bg-white rounded-3xl p-6 shadow-sm ">
                                 <div className="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center mb-4">
                                     <CgMail className="h-5 w-5 text-amber-600" />
                                 </div>
                                 <h3 className="text-[#3d3027] font-medium mb-1">Drop us an email</h3>
                                 <p className="text-[#6b5c4c] text-sm mb-3">We reply within 24 hours</p>
-                                <a href="mailto:hello@homely.co" className="text-[#3d3027] font-medium hover:text-rose-600 transition-colors">
-                                    hello@homely.co
-                                </a>
+                                <div className='flex flex-col space-y-1.5'>
+                                    <a href={`mailto:${brker_info?.email}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                        {brker_info?.email}
+                                    </a>
+                                    <a href={`mailto:${brker_info?.departments_info?.support_email}`} className="text-[#3d3027] font-medium hover:text-sky-700 transition-colors">
+                                        {brker_info?.departments_info?.support_email}
+                                    </a>
+                                </div>
                             </div>
 
                             <div className="bg-white rounded-3xl p-6 shadow-sm">
@@ -254,9 +267,9 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                                 </div>
                                 <h3 className="text-[#3d3027] font-medium mb-1">Visit our office</h3>
                                 <p className="text-[#6b5c4c] text-sm mb-3">Come say hello!</p>
-                                <p className="text-[#3d3027] font-medium">
-                                    456 Oak Street<br />
-                                    Austin, TX 78701
+                                <p className="text-[#3d3027] font-medium space-y-1.5">
+                                    <span>{brker_info?.contact_info?.address}, {brker_info?.contact_info?.address_2}</span>
+                                    <span>{brker_info?.contact_info?.city} {brker_info?.contact_info?.state}</span>
                                 </p>
                             </div>
                         </div>
@@ -264,73 +277,48 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                         {/* Form */}
                         <div className="lg:col-span-2">
                             <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm">
-                                <h2 className="text-2xl font-semibold text-[#3d3027] mb-2">Send us a message</h2>
-                                <p className="text-[#6b5c4c] mb-8">We&apos;d love to hear from you!</p>
+                                <h2 className="text-2xl font-semibold text-[#3d3027] mb-2">
+                                    {raw_data.header_2 || "Send us a message"}
+                                </h2>
+                                <p className="text-[#6b5c4c] mb-8">
+                                    {raw_data.sub_header_2 || "We'd love to hear from you!"}
+                                </p>
 
-                                <form onSubmit={handleSubmitClick} className="space-y-5">
-                                    <div className="grid md:grid-cols-2 gap-5">
+                                <div className='w-full flex flex-col space-y-5'>
+                                    <div className='grid grid-cols-2 gap-4'>
                                         <div>
-                                            <label className="text-sm text-[#3d3027] block mb-2">Your Name</label>
-                                            <input
-                                                value={formData.firstname}
-                                                onChange={handleInputChange}
-                                                className="h-12 border-[#e8ddd0] focus:border-rose-400 rounded-xl bg-[#fef9f3]"
-                                                placeholder="What should we call you?"
-                                            />
+                                            <FloatingInput name='firstname' label='First Name' placeholder='Enter your first name'
+                                                handleChange={(e) => handleInputChange(e)} value={formData.firstname} required />
                                         </div>
+
                                         <div>
-                                            <label className="text-sm text-[#3d3027] block mb-2">Phone Number</label>
-                                            <input
-                                                type="tel"
-                                                value={formData.phone}
-                                                onChange={handleInputChange}
-                                                className="h-12 border-[#e8ddd0] focus:border-rose-400 rounded-xl bg-[#fef9f3]"
-                                                placeholder="(555) 000-0000"
-                                            />
+                                            <FloatingInput name='lastname' label='Last Name' placeholder='Enter your last name'
+                                                handleChange={(e) => handleInputChange(e)} value={formData.lastname} required />
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label className="text-sm text-[#3d3027] block mb-2">Email Address</label>
-                                        <input
-                                            type="email"
-                                            value={formData.email}
-                                            onChange={handleInputChange}
-                                            className="h-12 border-[#e8ddd0] focus:border-rose-400 rounded-xl bg-[#fef9f3]"
-                                            placeholder="you@email.com"
-                                        />
+                                        <FloatingInput name='email' label='Email' placeholder='Enter your email'
+                                            handleChange={(e) => handleInputChange(e)} value={formData.email} required />
                                     </div>
-
                                     <div>
-                                        <label className="text-sm text-[#3d3027] block mb-2">Your Message</label>
-                                        <textarea
-                                            value={formData.message}
-                                            onChange={handleInputChange}
-                                            rows={5}
-                                            className="w-full border border-[#e8ddd0] focus:border-rose-400 rounded-xl bg-[#fef9f3] p-4 text-[#3d3027] focus:outline-none resize-none"
-                                            placeholder="Tell us about your dream home... What matters most to you?"
-                                        />
+                                        <FloatingInput name='phone' label='Phone Number' placeholder='Enter your phone number'
+                                            handleChange={(e) => handleInputChange(e)} value={formData.phone} required />
+                                    </div>
+                                    <div>
+                                        <FloatingInput name='subject' label='Subject' placeholder='Message subject'
+                                            handleChange={(e) => handleInputChange(e)} value={formData.subject} required />
+                                    </div>
+                                    <div>
+                                        <FloatingTextarea name='message' label='Message' placeholder='Enter your message' height='160px'
+                                            handleChange={(e) => handleInputChange(e)} value={formData.message} required />
                                     </div>
 
-                                    <Button className="w-full h-12 bg-rose-500 hover:bg-rose-600 text-white rounded-full font-medium">
-                                        Send Message
-                                    </Button>
-                                </form>
-
-                                <div className="mt-8 pt-8 border-t border-[#e8ddd0]">
-                                    <div className="flex items-center gap-4">
-                                        <div className="flex -space-x-2">
-                                            {[1, 2, 3].map((i) => (
-                                                <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-200 to-amber-200 border-2 border-white" />
-                                            ))}
-                                        </div>
-                                        <div>
-                                            <div className="flex items-center gap-1 mb-1">
-                                                {[1, 2, 3, 4, 5].map((i) => (
-                                                    <BiStar key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                                                ))}
-                                            </div>
-                                            <p className="text-sm text-[#6b5c4c]">Trusted by 500+ happy homeowners</p>
+                                    <div className='flex justify-end w-full'>
+                                        <div className='px-7 py-4 text-white bg-buttons-primary rounded hover:shadow-2xl cursor-pointer
+                                            flex items-center justify-center space-x-2 ' onClick={handleSubmitClick}>
+                                            <span>{raw_data.button_text || "Send Message"}</span>
+                                            <BiSend size={25} className='' />
                                         </div>
                                     </div>
                                 </div>
@@ -340,56 +328,25 @@ const ContactUsFormVar6 = ({ is_theme = false, raw_data = {} }: { is_theme?: boo
                 </div>
 
                 {is_theme && (
-                    <div className=' absolute z-[1000] right-1.5 top-1 space-x-2 flex items-center justify-end *:bg-gray-800 
+                    <div className=' absolute z-[1000] right-1.5 top-20 space-x-2 flex items-center justify-end *:bg-gray-800 
                     *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
-                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BiLayerPlus size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Add new section after
-                            </span>
-                        </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
                             onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BsGear size={17} />
 
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
                                 Section settings
                             </span>
                         </div>
 
                         <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            onClick={() => handleCompPickerClick("CHANGE_LAYOUT")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
                             <BiRefresh size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            <span className='absolute hidden whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
                             text-white text-xs'>
-                                Replace Section
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowUp size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Move Section Up
-                            </span>
-                        </div>
-
-                        <div id='editor_settings' className='hover:shadow-2xl relative group'
-                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
-                            <BsArrowDown size={17} />
-
-                            <span className='absolute hidden right-0 whitespace-nowrap group-hover:block bottom-full px-2 py-2 w-fit rounded bg-gray-800 
-                            text-white text-xs'>
-                                Move Section Down
+                                Change Layout
                             </span>
                         </div>
 

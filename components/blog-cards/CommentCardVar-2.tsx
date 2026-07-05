@@ -1,5 +1,6 @@
 "use client"
 
+import { Helpers } from '@/_lib/helper'
 import { RootState } from '@/app/GlobalRedux/store'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -7,6 +8,7 @@ import { ImReply } from 'react-icons/im'
 import { RiAdminLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 
+const helpers = new Helpers();
 const CommentCardVar2 = ({ comm, handleReply }:
     { comm: any, handleReply: (comment_uid: string, comment_parent: string) => void }) => {
 
@@ -39,8 +41,8 @@ const CommentCardVar2 = ({ comm, handleReply }:
                         }
                     </div>
                     <div className='mt-2 xs:mt-0'>
-                        <button className={`bg-${themeSett.primary_color}-600 text-white rounded flex items-center justify-center py-2 
-                            px-4 hover:bg -${themeSett.primary_color}-500 cursor-pointer hover:drop-shadow-xl`}
+                        <button className={`bg-${themeSett.primary_color} text-${themeSett.primary_button_text} rounded flex items-center justify-center py-2 
+                            px-4 hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)} cursor-pointer hover:drop-shadow-xl`}
                             onClick={() => handleReply(comm.comment_uid, comm.comments)}>
                             <ImReply size={15} /> <span className='text-sm ml-1'>Reply</span>
                         </button>

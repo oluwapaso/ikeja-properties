@@ -1,11 +1,8 @@
 'use client';
 
-import BlogsVar1 from "./blogs/BlogsVar-1";
 import FeaturedListsingsVar1 from "./featured-listings/FeaturedListsingsVar-1";
 import HeaderVar1 from "./headers/HeaderVar-1";
 import LoggedInMenu from "./navs/LoggedInMenu";
-import NeighborhoodsVar1 from "./neighbrhoods/NeighborhoodsVar-1";
-import OurServicesVar1 from "./our-services/OurServicesVar-1";
 import NoComponents from "./NoComponents";
 
 //Navs
@@ -101,6 +98,34 @@ import PrefrenceVar5 from "./prefrences/PrefrenceVar-5";
 import PrefrenceVar6 from "./prefrences/PrefrenceVar-6";
 import PrefrenceVar7 from "./prefrences/PrefrenceVar-7";
 
+//Blog Posts Page
+import BlogsVar1 from "./blogs/BlogsVar-1";
+import BlogsVar2 from "./blogs/BlogsVar-2";
+import BlogsVar3 from "./blogs/BlogsVar-3";
+import BlogsVar4 from "./blogs/BlogsVar-4";
+import BlogsVar5 from "./blogs/BlogsVar-5";
+import BlogsVar6 from "./blogs/BlogsVar-6";
+import BlogsVar7 from "./blogs/BlogsVar-7";
+
+//Blog Details Page
+import BlogDetailsVar1 from "./blog-details/BlogDetailsVar-1";
+import BlogDetailsVar2 from "./blog-details/BlogDetailsVar-2";
+import BlogDetailsVar3 from "./blog-details/BlogDetailsVar-3";
+import BlogDetailsVar4 from "./blog-details/BlogDetailsVar-4";
+
+//Neighborhoods Page
+import NeighborhoodsVar1 from "./neighborhoods/NeighborhoodsVar-1";
+import NeighborhoodsVar2 from "./neighborhoods/NeighborhoodsVar-2";
+import NeighborhoodsVar3 from "./neighborhoods/NeighborhoodsVar-3";
+import NeighborhoodsVar4 from "./neighborhoods/NeighborhoodsVar-4";
+
+//Neighborhoods Page Components
+import NeighborhoodCompVar1 from "./neighborhood-components/NeighborhoodCompVar-1";
+
+//Our Service Components
+import OurServicesVar1 from "./our-services/OurServicesVar-1";
+import OurServicesVar2 from "./our-services/OurServicesVar-2";
+
 // Define props for each component explicitly
 type ComponentPropsMap = {
     //Navbars
@@ -110,9 +135,6 @@ type ComponentPropsMap = {
 
     HeaderVar1: React.ComponentProps<typeof HeaderVar1>;
     FeaturedListsingsVar1: React.ComponentProps<typeof FeaturedListsingsVar1>;
-    OurServicesVar1: React.ComponentProps<typeof OurServicesVar1>;
-    NeighborhoodsVar1: React.ComponentProps<typeof NeighborhoodsVar1>;
-    BlogsVar1: React.ComponentProps<typeof BlogsVar1>;
 
     //Property Cards
     PropCardVar1: React.ComponentProps<typeof PropCardVar1>;
@@ -191,6 +213,34 @@ type ComponentPropsMap = {
     PrefrenceVar6: React.ComponentProps<typeof PrefrenceVar6>;
     PrefrenceVar7: React.ComponentProps<typeof PrefrenceVar7>;
 
+    //Blog Posts Page
+    BlogsVar1: React.ComponentProps<typeof BlogsVar1>;
+    BlogsVar2: React.ComponentProps<typeof BlogsVar2>;
+    BlogsVar3: React.ComponentProps<typeof BlogsVar3>;
+    BlogsVar4: React.ComponentProps<typeof BlogsVar4>;
+    BlogsVar5: React.ComponentProps<typeof BlogsVar5>;
+    BlogsVar6: React.ComponentProps<typeof BlogsVar6>;
+    BlogsVar7: React.ComponentProps<typeof BlogsVar7>;
+
+    //Blog Details Page
+    BlogDetailsVar1: React.ComponentProps<typeof BlogDetailsVar1>;
+    BlogDetailsVar2: React.ComponentProps<typeof BlogDetailsVar2>;
+    BlogDetailsVar3: React.ComponentProps<typeof BlogDetailsVar3>;
+    BlogDetailsVar4: React.ComponentProps<typeof BlogDetailsVar4>;
+
+    //Neighborhoods Page 
+    NeighborhoodsVar1: React.ComponentProps<typeof NeighborhoodsVar1>;
+    NeighborhoodsVar2: React.ComponentProps<typeof NeighborhoodsVar2>;
+    NeighborhoodsVar3: React.ComponentProps<typeof NeighborhoodsVar3>;
+    NeighborhoodsVar4: React.ComponentProps<typeof NeighborhoodsVar4>;
+
+    //Neighborhoods Page Components
+    NeighborhoodCompVar1: React.ComponentProps<typeof NeighborhoodCompVar1>;
+
+    //Our Services Components
+    OurServicesVar1: React.ComponentProps<typeof OurServicesVar1>;
+    OurServicesVar2: React.ComponentProps<typeof OurServicesVar2>;
+
     LoggedInMenu: React.ComponentProps<typeof LoggedInMenu>;
     NoComponents: React.ComponentProps<typeof NoComponents>;
 
@@ -215,9 +265,6 @@ export const componentRegistry = {
 
     HeaderVar1,
     FeaturedListsingsVar1,
-    OurServicesVar1,
-    NeighborhoodsVar1,
-    BlogsVar1,
 
     //Property Cards
     PropCardVar1,
@@ -295,6 +342,34 @@ export const componentRegistry = {
     PrefrenceVar5,
     PrefrenceVar6,
     PrefrenceVar7,
+
+    //Blog Posts Page
+    BlogsVar1,
+    BlogsVar2,
+    BlogsVar3,
+    BlogsVar4,
+    BlogsVar5,
+    BlogsVar6,
+    BlogsVar7,
+
+    //Blog Details Page
+    BlogDetailsVar1,
+    BlogDetailsVar2,
+    BlogDetailsVar3,
+    BlogDetailsVar4,
+
+    //Neighborhoods Page
+    NeighborhoodsVar1,
+    NeighborhoodsVar2,
+    NeighborhoodsVar3,
+    NeighborhoodsVar4,
+
+    //Neighborhoods Page Components
+    NeighborhoodCompVar1,
+
+    //Our Services Components
+    OurServicesVar1,
+    OurServicesVar2,
 
     LoggedInMenu,
     NoComponents,

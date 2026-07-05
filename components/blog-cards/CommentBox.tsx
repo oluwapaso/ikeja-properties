@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
 import { Helpers } from '@/_lib/helper'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/app/GlobalRedux/store'
@@ -12,7 +11,7 @@ import FloatingInput from '../FloatingInput'
 import FloatingTextarea from '../FloatingTextarea'
 import { hidePageLoader, showPageLoader } from '@/app/GlobalRedux/app/appSlice'
 
-const helper = new Helpers();
+const helpers = new Helpers();
 const CommentBox = ({ item_type, item_uid, setRepToAppend, setNoComms }:
     {
         item_type: string, item_uid: string, setRepToAppend: React.Dispatch<any>,
@@ -41,7 +40,7 @@ const CommentBox = ({ item_type, item_uid, setRepToAppend, setNoComms }:
         toast.dismiss();
         try {
 
-            if (!helper.validateEmail(values.email)) {
+            if (!helpers.validateEmail(values.email)) {
 
                 toast.error("Provide a valid email address", {
                     position: "top-center",
@@ -126,9 +125,9 @@ const CommentBox = ({ item_type, item_uid, setRepToAppend, setNoComms }:
                 ...prevVals,
                 "post_uid": `${item_uid}`, //for blog posts
                 "neighborhood_uid": `${item_uid}`, //for neighborhood insight
-                "firstname": `${user.user_info?.firstname}`,
-                "lastname": `${user.user_info?.lastname}`,
-                "email": `${user.user_info?.email}`,
+                "firstname": `${user.user_info?.firstname || ""}`,
+                "lastname": `${user.user_info?.lastname || ""}`,
+                "email": `${user.user_info?.email || ""}`,
             }
         });
     }, [user.user_info]);
@@ -142,12 +141,12 @@ const CommentBox = ({ item_type, item_uid, setRepToAppend, setNoComms }:
 
     if (themeSett && themeSett != null) {
         return (
-            <div className='w-full mt-2 border border-gray-300 px-6 py-4 shadow-2xl rounded-lg'>
+            <div className='w-full mt-2 bg-white border border-gray-300 px-6 py-4 shadow-xl rounded-lg'>
 
                 <div className='grid grid-cols-2 gap-5'>
                     <div className=''>
                         <div className='mt-5 flex flex-col'>
-                            <FloatingInput label='First Name' placeholder='Full Name' value={values.firstname} name='First Name'
+                            <FloatingInput label='First Name' placeholder='Full Name' value={values.firstname} name='firstname'
                                 handleChange={(e) => handleChange(e)} required />
                         </div>
                     </div>
@@ -176,14 +175,15 @@ const CommentBox = ({ item_type, item_uid, setRepToAppend, setNoComms }:
                 <div className='my-5 flex justify-end'>
                     {
                         !submitting ? (
-                            <button className={`bg-${themeSett?.primary_color}-600 text-white font-normal px-6 py-3 hover:shadow-2xl
-                            hover:bg-${themeSett?.primary_color}-700 rounded flex items-center space-x-2 cursor-pointer`}
+                            <button className={`bg-${themeSett?.primary_color} text-${themeSett.primary_button_text} font-normal 
+                            px-6 py-3 hover:shadow-2xl hover:bg-${helpers.adjustColorShade(themeSett.primary_color, 1)} rounded 
+                            flex items-center space-x-2 cursor-pointer`}
                                 onClick={handleSubmit}>
                                 <BiCommentAdd size={18} />
                                 <span>Leave a Comment</span>
                             </button>
-                        ) : <button className={`bg-${themeSett?.primary_color}-600 opacity-45 font-normal text-white px-6 py-3 flex 
-                            items-center cursor-not-allowed rounded`}>
+                        ) : <button className={`bg-${themeSett?.primary_color} text-${themeSett.primary_button_text} px-6 py-3 flex 
+                            opacity-45 font-normal items-center cursor-not-allowed rounded`}>
                             <AiOutlineLoading3Quarters size={14} className='animate-spin' />  <span className='ml-2'>Please wait...</span>
                         </button>
                     }

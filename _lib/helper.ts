@@ -329,4 +329,15 @@ export class Helpers {
         );
     }
 
+    // Get featured post from localStorage
+    public getFeaturedPost = () => {
+        try {
+            const featured = localStorage.getItem('featuredPost');
+            return featured ? JSON.parse(featured) : null;
+        } catch (e) {
+            console.error('Error parsing featured post:', e);
+            return null;
+        }
+    } 
+
 }

@@ -1,0 +1,8 @@
+Generate a nextjs page from this image 
+https://cdn.dribbble.com/userupload/43362037/file/original-22c01310b68c30320d9ca687a3d3083b.png?resize=1024x969&vertical=center
+use taiwindcss and make it responsive, keep the design as it is especially the cards and color, 
+make sure the card i a standalone component, dont add shadow or border radius if it's not in the design
+
+
+
+need to test css     mix-blend-mode: difference;
