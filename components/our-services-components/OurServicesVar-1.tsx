@@ -57,7 +57,7 @@ const OurServicesVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_the
             {
                 type: event_type,
                 component_index: raw_data?.component_index,
-                component_type: "Featured Listsings"
+                component_type: "Our Services"
             },
             '*' // In production, replace '*' with your parent URL for security
         );
@@ -76,6 +76,7 @@ const OurServicesVar1 = ({ is_theme = false, size = 4, raw_data = {} }: { is_the
         const payload = {
             "account_id": process.env.NEXT_PUBLIC_ACCOUNT_ID,
             "size": size,
+            "featured": "Yes", //Constant
             "skip": "0",
             "fields": "service_uid,title,icon,slug,excerpt,descriptions"
         }

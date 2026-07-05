@@ -8,6 +8,8 @@ import CustomLinkMain from '../CustomLink';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { Helpers } from '@/_lib/helper';
 import DynamicIcon from '../DynamicIcon';
+import { BiLayerPlus, BiRefresh, BiTrash } from 'react-icons/bi';
+import { BsArrowDown, BsArrowUp, BsGear } from 'react-icons/bs';
 
 const helpers = new Helpers();
 const OurServicesVar2 = ({ is_theme = false, size = 4, raw_data = {} }: { is_theme?: boolean, size?: number, raw_data?: any }) => {
@@ -55,7 +57,7 @@ const OurServicesVar2 = ({ is_theme = false, size = 4, raw_data = {} }: { is_the
             {
                 type: event_type,
                 component_index: raw_data?.component_index,
-                component_type: "Featured Listsings"
+                component_type: "Our Services"
             },
             '*' // In production, replace '*' with your parent URL for security
         );
@@ -74,6 +76,7 @@ const OurServicesVar2 = ({ is_theme = false, size = 4, raw_data = {} }: { is_the
         const payload = {
             "account_id": process.env.NEXT_PUBLIC_ACCOUNT_ID,
             "size": size,
+            "featured": "Yes", //Constant
             "skip": "0",
             "fields": "service_uid,title,slug,icon,excerpt,descriptions"
         }
@@ -150,14 +153,15 @@ const OurServicesVar2 = ({ is_theme = false, size = 4, raw_data = {} }: { is_the
                                         <h3 className="mb-2 text-xl font-bold text-gray-900">{service.title}</h3>
                                         <p className="text-sm leading-relaxed text-gray-600 line-clamp-4">{service.excerpt}</p>
 
-                                        <div className=' flex justify-end items-center '>
+                                        <CustomLinkMain href={`${themeSett.theme_prefix}/service-details/${service.slug}`} is_theme={is_theme}
+                                            className=' flex justify-end items-center '>
                                             <div className={`w-fit px-4 py-1 mt-1 text-sm bg-white border-1 border-${themeSett.primary_color} flex 
                                                 items-center justify-center hover:bg-${themeSett.primary_color} text-${themeSett.primary_color} 
                                                 hover:text-white cursor-pointer rounded space-x-2.5 hover:shadow-2xl`}>
                                                 <span>Read More</span>
                                                 <FaArrowRightLong size={18} />
                                             </div>
-                                        </div>
+                                        </CustomLinkMain>
                                     </div>
                                 </div>
                             ))}
@@ -177,6 +181,74 @@ const OurServicesVar2 = ({ is_theme = false, size = 4, raw_data = {} }: { is_the
                         </CustomLinkMain>
                     </div>
                 }
+
+
+                {is_theme && (
+                    <div className='absolute z-[1000] right-1.5 top-2 space-x-2 flex items-center justify-end 
+                    *:bg-gray-800 *:text-white *:flex *:items-center *:justify-center *:p-2 *:rounded *:cursor-pointer'>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group' onClick={() => handleCompPickerClick("APPEND_SECTION")}
+                            onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiLayerPlus size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                            text-white text-xs'>
+                                Add new section after
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={handleSettingsClick} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsGear size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Section settings
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REPLACE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiRefresh size={17} />
+
+                            <span className='absolute hidden group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Replace Section
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleMoveClick("UP")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsArrowUp size={17} />
+
+                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Move Section Up
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleMoveClick("DOWN")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BsArrowDown size={17} />
+
+                            <span className='absolute hidden right-0 group-hover:inline-block whitespace-nowrap bottom-full px-2 py-2 w-fit rounded bg-gray-800 
+                                text-white text-xs'>
+                                Move Section Down
+                            </span>
+                        </div>
+
+                        <div id='editor_settings' className='hover:shadow-2xl relative group'
+                            onClick={() => handleCompPickerClick("REMOVE_SECTION")} onMouseOver={handleHover} onMouseOut={handleMouseExist}>
+                            <BiTrash size={17} />
+
+                            <span className='absolute hidden right-0 w-fit group-hover:inline-block whitespace-nowrap bottom-full px-2 
+                                py-2 rounded bg-gray-800 text-white text-xs'>
+                                Remove Section Down
+                            </span>
+                        </div>
+
+                    </div>
+                )}
             </section>
         );
     }

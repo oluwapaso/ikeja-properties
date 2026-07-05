@@ -123,8 +123,9 @@ import NeighborhoodsVar4 from "./neighborhoods/NeighborhoodsVar-4";
 import NeighborhoodCompVar1 from "./neighborhood-components/NeighborhoodCompVar-1";
 
 //Our Service Components
-import OurServicesVar1 from "./our-services/OurServicesVar-1";
-import OurServicesVar2 from "./our-services/OurServicesVar-2";
+import OurServicesVar1 from "./our-services-components/OurServicesVar-1";
+import OurServicesVar2 from "./our-services-components/OurServicesVar-2";
+import OurServicesVar3 from "./our-services-components/OurServicesVar-3";
 
 // Define props for each component explicitly
 type ComponentPropsMap = {
@@ -240,6 +241,7 @@ type ComponentPropsMap = {
     //Our Services Components
     OurServicesVar1: React.ComponentProps<typeof OurServicesVar1>;
     OurServicesVar2: React.ComponentProps<typeof OurServicesVar2>;
+    OurServicesVar3: React.ComponentProps<typeof OurServicesVar3>;
 
     LoggedInMenu: React.ComponentProps<typeof LoggedInMenu>;
     NoComponents: React.ComponentProps<typeof NoComponents>;
@@ -370,6 +372,7 @@ export const componentRegistry = {
     //Our Services Components
     OurServicesVar1,
     OurServicesVar2,
+    OurServicesVar3,
 
     LoggedInMenu,
     NoComponents,
