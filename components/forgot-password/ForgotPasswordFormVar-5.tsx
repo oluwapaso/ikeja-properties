@@ -103,7 +103,7 @@ const ForgotPasswordFormVar5 = ({ is_theme = false, raw_data = {} }: { is_theme?
             {
                 type: 'OPEN_EDITOR_SETTINGS',
                 data: {
-                    "category": "forget_password",
+                    "category": "forgot_password",
                     "type": "section",
                     "component": "ForgotPasswordFormVar5",
                     ...raw_data,
